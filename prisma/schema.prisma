@@ -92,6 +92,7 @@ model VideoRequest {
   s3BasePath      String?       @db.Text
   captions        String?       @db.Text
   srtPath         String?       @db.Text
+  testVideoPath   String?       @db.Text
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
   questionnaire   Questionnaire @relation(fields: [questionnaireId], references: [id])

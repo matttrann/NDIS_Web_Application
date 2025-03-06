@@ -73,6 +73,8 @@ export async function GET() {
         storytellerId: true,
         status: true,
         script: true,
+        testVideoPath: true,
+        s3BasePath: true,
         createdAt: true,
         updatedAt: true,
         user: {

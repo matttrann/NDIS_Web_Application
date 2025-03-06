@@ -8,6 +8,7 @@ import Image from "next/image";
 import { storytellers } from "@/config/storytellers";
 import { ScriptReview } from "@/components/admin/script-review";
 import { VideoStatusDisplay } from "@/components/admin/video-status-display";
+import { useState, useEffect } from "react";
 
 export type VideoRequest = {
   id: string;
@@ -16,6 +17,8 @@ export type VideoRequest = {
   storytellerId: string;
   status: string;
   script?: string | null;
+  testVideoPath?: string | null;
+  s3BasePath?: string | null;
   createdAt: Date;
   updatedAt: Date;
   user: {
@@ -48,6 +51,59 @@ async function updateStatus(id: string, status: string) {
       variant: "destructive",
     });
   }
+}
+
+// Component to display the test video
+function TestVideoPreview({ testVideoPath }: { testVideoPath: string | null }) {
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function getSignedS3Url() {
+      if (!testVideoPath) return;
+      
+      try {
+        setIsLoading(true);
+        const response = await fetch(`/api/signed-url?key=${encodeURIComponent(testVideoPath)}`);
+        const data = await response.json();
+        setVideoUrl(data.url);
+      } catch (error) {
+        console.error("Error getting signed URL:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    getSignedS3Url();
+  }, [testVideoPath]);
+
+  if (!testVideoPath) {
+    return <div className="text-sm text-muted-foreground">No video available</div>;
+  }
+
+  if (isLoading) {
+    return <div className="text-sm text-muted-foreground">Loading video preview...</div>;
+  }
+
+  return (
+    <div className="w-full max-w-[300px]">
+      <video 
+        controls 
+        className="w-full rounded-md border border-gray-200"
+        src={videoUrl || undefined}
+      >
+        Your browser does not support the video tag.
+      </video>
+      <a 
+        href={videoUrl || "#"} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="text-sm text-blue-600 hover:underline block mt-2"
+      >
+        Open in new tab
+      </a>
+    </div>
+  );
 }
 
 export const videoRequestColumns: ColumnDef<VideoRequest>[] = [
@@ -134,6 +190,14 @@ export const videoRequestColumns: ColumnDef<VideoRequest>[] = [
           </div>
         </div>
       );
+    },
+  },
+  {
+    accessorKey: "testVideoPath",
+    header: "Video",
+    cell: ({ row }) => {
+      const testVideoPath = row.original.testVideoPath;
+      return <TestVideoPreview testVideoPath={testVideoPath} />;
     },
   },
 ]; 

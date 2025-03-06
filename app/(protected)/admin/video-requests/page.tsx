@@ -18,6 +18,8 @@ export default async function VideoRequestsPage() {
       storytellerId: true,
       status: true,
       script: true,
+      testVideoPath: true,
+      s3BasePath: true,
       createdAt: true,
       updatedAt: true,
       user: {

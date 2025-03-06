@@ -8,6 +8,7 @@ import path from 'path';
 import fs from 'fs';
 import os from 'os';
 import https from 'https';
+import { PrismaClient } from '@prisma/client';
 
 // Load environment variables
 config();
@@ -32,10 +33,10 @@ console.log('Using S3 Bucket:', process.env.AWS_BUCKET_NAME);
 
 // Initialize S3 client
 const s3Client = new S3Client({
-  region: process.env.AWS_REGION,
+  region: process.env.AWS_REGION!,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!
   }
 });
 
@@ -174,6 +175,49 @@ async function testVideoComposition(videoRequestId: string) {
 
     // Clean up
     fs.unlinkSync(outputPath);
+
+    // Update the VideoRequest record with the test video path
+    const prisma = new PrismaClient();
+    
+    try {
+      // Add logging to verify the data we're trying to update
+      console.log('Video request ID:', videoRequestId);
+      console.log('Test video path to save:', outputKey);
+
+      // First check if the record exists
+      const existingRequest = await prisma.videoRequest.findUnique({
+        where: { id: videoRequestId },
+      });
+      
+      if (!existingRequest) {
+        throw new Error(`Video request not found with ID: ${videoRequestId}`);
+      }
+      
+      console.log('Found existing video request:', existingRequest);
+
+      // Perform the update
+      const updatedRequest = await prisma.videoRequest.update({
+        where: { id: videoRequestId },
+        data: { 
+          testVideoPath: outputKey,
+          // Also update the status to indicate test video is ready
+          status: "test_video_ready" 
+        },
+      });
+      
+      console.log('Successfully updated VideoRequest. New data:', updatedRequest);
+    } catch (error) {
+      console.error('Database update error details:', {
+        error,
+        videoRequestId,
+        outputKey,
+        errorMessage: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined
+      });
+      throw error;
+    } finally {
+      await prisma.$disconnect();
+    }
 
     console.log('Test completed successfully!');
     console.log('Output video:', outputKey);
