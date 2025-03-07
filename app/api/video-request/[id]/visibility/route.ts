@@ -22,9 +22,7 @@ export async function PATCH(
       },
       select: {
         id: true,
-        isVisible: true,
-        userId: true,
-        status: true
+        isVisible: true
       }
     });
 
@@ -33,6 +31,14 @@ export async function PATCH(
     return NextResponse.json(videoRequest);
   } catch (error) {
     console.error("Error updating video visibility:", error);
-    return new NextResponse("Internal server error", { status: 500 });
+    return new NextResponse(JSON.stringify({ 
+      error: "Failed to update video visibility",
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }), { 
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
   }
 } 

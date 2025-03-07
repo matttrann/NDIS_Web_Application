@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
@@ -34,6 +34,60 @@ export function GeneratedVideosClient({
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  // Initial load effect
+  useEffect(() => {
+    fetchLatestData();
+    setIsInitialLoad(false);
+  }, []);
+
+  // Auto-refresh effect (optional, but useful for keeping data fresh)
+  useEffect(() => {
+    if (!isInitialLoad) {
+      const interval = setInterval(() => {
+        fetchLatestData(false); // Pass false to not show loading state
+      }, 30000); // Refresh every 30 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [isInitialLoad, currentPage]);
+
+  const fetchLatestData = async (showLoading = true) => {
+    if (showLoading) {
+      setIsRefreshing(true);
+    }
+    
+    try {
+      const response = await fetch(
+        `/api/video-request?page=${currentPage}&pageSize=${initialPagination.pageSize}&hasTestVideo=true`
+      );
+      if (!response.ok) throw new Error('Failed to fetch videos');
+      
+      const data = await response.json();
+      setVideos(data.data);
+      
+      if (showLoading) {
+        toast.success('Videos refreshed');
+      }
+    } catch (error) {
+      console.error('Error fetching videos:', error);
+      if (showLoading) {
+        toast.error('Failed to refresh videos');
+      }
+    } finally {
+      if (showLoading) {
+        setIsRefreshing(false);
+      }
+    }
+  };
+
+  const handleRefresh = () => fetchLatestData(true);
+
+  const handlePageChange = async (page: number) => {
+    setCurrentPage(page);
+    await fetchLatestData(true);
+  };
 
   const filteredVideos = videos.filter((video) => {
     const userName = video.user.name?.toLowerCase() || "";
@@ -41,35 +95,6 @@ export function GeneratedVideosClient({
     const search = searchTerm.toLowerCase();
     return userName.includes(search) || userEmail.includes(search);
   });
-
-  const handleRefresh = async () => {
-    setIsRefreshing(true);
-    try {
-      const response = await fetch(
-        `/api/video-request?page=${currentPage}&pageSize=${initialPagination.pageSize}&hasTestVideo=true`
-      );
-      const data = await response.json();
-      setVideos(data.data);
-      toast.success('Videos refreshed');
-    } catch (error) {
-      toast.error('Failed to refresh videos');
-    } finally {
-      setIsRefreshing(false);
-    }
-  };
-
-  const fetchVideos = async (page: number) => {
-    try {
-      const response = await fetch(
-        `/api/video-request?page=${page}&pageSize=${initialPagination.pageSize}&hasTestVideo=true`
-      );
-      const data = await response.json();
-      setVideos(data.data);
-      setCurrentPage(page);
-    } catch (error) {
-      console.error("Error fetching videos:", error);
-    }
-  };
 
   return (
     <div className="space-y-4">
@@ -101,14 +126,14 @@ export function GeneratedVideosClient({
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious 
-              onClick={() => fetchVideos(currentPage - 1)}
+              onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             />
           </PaginationItem>
           {Array.from({ length: initialPagination.pageCount }, (_, i) => (
             <PaginationItem key={i + 1}>
               <PaginationLink
-                onClick={() => fetchVideos(i + 1)}
+                onClick={() => handlePageChange(i + 1)}
                 isActive={currentPage === i + 1}
               >
                 {i + 1}
@@ -117,7 +142,7 @@ export function GeneratedVideosClient({
           ))}
           <PaginationItem>
             <PaginationNext
-              onClick={() => fetchVideos(currentPage + 1)}
+              onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === initialPagination.pageCount}
             />
           </PaginationItem>
