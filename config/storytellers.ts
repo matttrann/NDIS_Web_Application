@@ -6,48 +6,48 @@ interface Storyteller {
 }
 
 export const storytellers: Storyteller[] = [
-  // {
-  //   id: "top g",
-  //   name: "top g",
-  //   avatar: "/storytellers/topg.png", // Local path for selecting Storyteller cards
-  //   s3imageKey: "s3://skills4life-videos/storytellers/topg.png"  // Full S3 URI path for lip sync storyteller image input
-  // },
+  {
+    id: "top g",
+    name: "top g",
+    avatar: "/storytellers/topg.png", // Local path for selecting Storyteller cards
+    s3imageKey: "s3://skills4life-videos/storytellers/topg.png"  // Full S3 URI path for lip sync storyteller image input
+  },
   // {
   //   id: "la flame",
   //   name: "la flame",
   //   avatar: "/storytellers/laflame.png",
   //   s3imageKey: "s3://skills4life-videos/storytellers/laflame.png"
   // },
-  // {
-  //   id: "ronaldo",
-  //   name: "ronaldo",
-  //   avatar: "/storytellers/ronaldo.png",
-  //   s3imageKey: "s3://skills4life-videos/storytellers/ronaldo.png"
-  // },
-  // {
-  //   id: "ishowspeed",
-  //   name: "ishowspeed",
-  //   avatar: "/storytellers/ishowspeed.png",
-  //   s3imageKey: "s3://skills4life-videos/storytellers/ishowspeed.png"
-  // },
-  // {
-  //   id: "sydney sweeney",
-  //   name: "sydney sweeney",
-  //   avatar: "/storytellers/sydneysweeney.png",
-  //   s3imageKey: "s3://skills4life-videos/storytellers/sydneysweeney.png"
-  // },
-  // {
-  //   id: "kim kardashian",
-  //   name: "kim kardashian",
-  //   avatar: "/storytellers/kimkardashian.png",
-  //   s3imageKey: "s3://skills4life-videos/storytellers/kimkardashian.png"
-  // },
-  // {
-  //   id: "lisa",
-  //   name: "lisa",
-  //   avatar: "/storytellers/lisa.png",
-  //   s3imageKey: "s3://skills4life-videos/storytellers/lisa.png"
-  // },
+  {
+    id: "ronaldo",
+    name: "ronaldo",
+    avatar: "/storytellers/ronaldo.png",
+    s3imageKey: "s3://skills4life-videos/storytellers/ronaldo.png"
+  },
+  {
+    id: "ishowspeed",
+    name: "ishowspeed",
+    avatar: "/storytellers/ishowspeed.png",
+    s3imageKey: "s3://skills4life-videos/storytellers/ishowspeed.png"
+  },
+  {
+    id: "sydney sweeney",
+    name: "sydney sweeney",
+    avatar: "/storytellers/sydneysweeney.png",
+    s3imageKey: "s3://skills4life-videos/storytellers/sydneysweeney.png"
+  },
+  {
+    id: "kim kardashian",
+    name: "kim kardashian",
+    avatar: "/storytellers/kimkardashian.png",
+    s3imageKey: "s3://skills4life-videos/storytellers/kimkardashian.png"
+  },
+  {
+    id: "lisa",
+    name: "lisa",
+    avatar: "/storytellers/lisa.png",
+    s3imageKey: "s3://skills4life-videos/storytellers/lisa.png"
+  },
   // {
   //   id: "ironmouse",
   //   name: "ironmouse",

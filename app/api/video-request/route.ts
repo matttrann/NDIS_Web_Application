@@ -58,13 +58,23 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     const user = await getCurrentUser();
     if (!user || user.role !== "ADMIN") {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    // Get pagination parameters from URL
+    const { searchParams } = new URL(req.url);
+    const page = parseInt(searchParams.get("page") || "1");
+    const pageSize = parseInt(searchParams.get("pageSize") || "10");
+    const skip = (page - 1) * pageSize;
+
+    // Get total count for pagination
+    const totalCount = await db.videoRequest.count();
+
+    // Get paginated data
     const videoRequests = await db.videoRequest.findMany({
       select: {
         id: true,
@@ -92,9 +102,19 @@ export async function GET() {
       orderBy: {
         createdAt: "desc",
       },
+      skip,
+      take: pageSize,
     });
 
-    return NextResponse.json(videoRequests);
+    return NextResponse.json({
+      data: videoRequests,
+      metadata: {
+        totalCount,
+        pageCount: Math.ceil(totalCount / pageSize),
+        currentPage: page,
+        pageSize,
+      }
+    });
   } catch (error) {
     console.error("Error fetching video requests:", error);
     return new NextResponse("Internal server error", { status: 500 });

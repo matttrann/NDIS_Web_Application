@@ -10,6 +10,9 @@ export default async function VideoRequestsPage() {
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/login");
 
+  const pageSize = 10;
+  const totalCount = await db.videoRequest.count();
+
   const videoRequests = await db.videoRequest.findMany({
     select: {
       id: true,
@@ -37,7 +40,18 @@ export default async function VideoRequestsPage() {
     orderBy: {
       createdAt: "desc",
     },
+    take: pageSize,
   });
+
+  const initialData = {
+    data: videoRequests,
+    metadata: {
+      totalCount,
+      pageCount: Math.ceil(totalCount / pageSize),
+      currentPage: 1,
+      pageSize,
+    }
+  };
 
   return (
     <div className="container grid gap-8">
@@ -45,7 +59,10 @@ export default async function VideoRequestsPage() {
         heading="Video Requests"
         text="Manage video generation requests from users."
       />
-      <VideoRequestsClient initialRequests={videoRequests} />
+      <VideoRequestsClient 
+        initialRequests={initialData.data} 
+        initialPagination={initialData.metadata} 
+      />
     </div>
   );
 } 
