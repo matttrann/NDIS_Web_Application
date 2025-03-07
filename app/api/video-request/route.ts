@@ -69,33 +69,36 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get("page") || "1");
     const pageSize = parseInt(searchParams.get("pageSize") || "10");
+    const hasTestVideo = searchParams.get("hasTestVideo") === "true";
     const skip = (page - 1) * pageSize;
 
+    // Build where clause
+    const where = hasTestVideo ? {
+      testVideoPath: {
+        not: null
+      }
+    } : {};
+
     // Get total count for pagination
-    const totalCount = await db.videoRequest.count();
+    const totalCount = await db.videoRequest.count({ where });
 
     // Get paginated data
     const videoRequests = await db.videoRequest.findMany({
+      where,
       select: {
         id: true,
         userId: true,
         questionnaireId: true,
-        storytellerId: true,
+        testVideoPath: true,
         status: true,
         script: true,
-        testVideoPath: true,
-        s3BasePath: true,
         createdAt: true,
         updatedAt: true,
+        storytellerId: true,
         user: {
           select: {
             name: true,
             email: true,
-          },
-        },
-        questionnaire: {
-          select: {
-            answers: true,
           },
         },
       },

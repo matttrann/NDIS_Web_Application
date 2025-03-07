@@ -36,6 +36,7 @@ import {
   PenSquare,
   ClipboardList,
   Sparkles,
+  Video,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -124,6 +125,8 @@ export const Icons = {
   studio: PenSquare,
   database: Database,
   questionnaire: ClipboardList,
+  listVideo: Video,
+
   twitter: ({ ...props }: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"

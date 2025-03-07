@@ -44,12 +44,11 @@ export const sidebarLinks: SidebarNavItem[] = [
         authorizeOnly: UserRole.ADMIN,
       },
       {
-        href: "/admin",
-        icon: "laptop",
+        href: "/admin/generated-videos",
+        icon: "listVideo",
         title: "Generated Videos",
         authorizeOnly: UserRole.ADMIN,
       },
-      
     ],
   },
   {

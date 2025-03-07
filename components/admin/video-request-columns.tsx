@@ -125,7 +125,10 @@ export const videoRequestColumns: ColumnDef<VideoRequest>[] = [
     header: "Questionnaire #",
     cell: ({ row }) => {
       const questionnaireId = row.original.questionnaireId;
-      // Take the last 6 characters of the ID to make it shorter
+      if (!questionnaireId) {
+        return <div className="font-medium">No ID</div>;
+      }
+      
       const shortId = questionnaireId.slice(-6).toUpperCase();
       
       return (
@@ -191,13 +194,5 @@ export const videoRequestColumns: ColumnDef<VideoRequest>[] = [
         </div>
       );
     },
-  },
-  {
-    accessorKey: "testVideoPath",
-    header: "Video",
-    cell: ({ row }) => {
-      const testVideoPath = row.original.testVideoPath;
-      return <TestVideoPreview testVideoPath={testVideoPath} />;
-    },
-  },
+  }
 ]; 

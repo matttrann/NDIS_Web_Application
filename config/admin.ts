@@ -22,6 +22,11 @@ export const adminConfig: AdminConfig = {
       href: "/admin/questionnaire-results",
       icon: "database",
     },
+    {
+      title: "Generated Videos",
+      href: "/admin/generated-videos",
+      icon: "video",
+    },
     // ... existing menu items ...
   ],
 };
