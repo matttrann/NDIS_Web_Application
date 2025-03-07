@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { AvatarSelector } from "@/components/story/avatar-selector";
+import { DisclaimerDialog } from "@/components/story/disclaimer-dialog";
 
 interface Questionnaire {
   id: string;
@@ -120,6 +121,8 @@ export default function StoryGeneratorPage() {
 
   return (
     <div className="container grid gap-8">
+      <DisclaimerDialog />
+      
       <DashboardHeader
         heading="Story Generator"
         text="Generate personalised stories based on your submitted questionnaire and get guidance and support."
