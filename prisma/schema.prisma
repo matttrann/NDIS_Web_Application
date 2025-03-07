@@ -93,6 +93,7 @@ model VideoRequest {
   captions        String?       @db.Text
   srtPath         String?       @db.Text
   testVideoPath   String?       @db.Text
+  isVisible       Boolean       @default(false)
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
   questionnaire   Questionnaire @relation(fields: [questionnaireId], references: [id])

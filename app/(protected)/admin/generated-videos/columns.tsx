@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { VideoStatusDisplay } from "@/components/admin/video-status-display";
+import { Switch } from "@/components/ui/switch";
+import { toast } from "sonner";
 
 interface GeneratedVideo {
   id: string;
@@ -11,6 +13,7 @@ interface GeneratedVideo {
   testVideoPath: string;
   createdAt: Date;
   status: string;
+  isVisible?: boolean;
   user: {
     name: string | null;
     email: string | null;
@@ -64,6 +67,41 @@ function TestVideoPreview({ testVideoPath }: { testVideoPath: string }) {
   );
 }
 
+function VideoVisibilityToggle({ id, initialVisibility }: { id: string, initialVisibility?: boolean }) {
+  const [isVisible, setIsVisible] = useState(initialVisibility ?? false);
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const toggleVisibility = async () => {
+    setIsUpdating(true);
+    try {
+      const response = await fetch(`/api/video-request/${id}/visibility`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isVisible: !isVisible }),
+      });
+
+      if (!response.ok) throw new Error('Failed to update visibility');
+      
+      setIsVisible(!isVisible);
+      toast.success('Video visibility updated');
+    } catch (error) {
+      toast.error('Failed to update video visibility');
+      // Revert the switch if the update failed
+      setIsVisible(isVisible);
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  return (
+    <Switch
+      checked={isVisible}
+      onCheckedChange={toggleVisibility}
+      disabled={isUpdating}
+    />
+  );
+}
+
 export const generatedVideoColumns: ColumnDef<GeneratedVideo>[] = [
   {
     accessorKey: "user",
@@ -91,6 +129,18 @@ export const generatedVideoColumns: ColumnDef<GeneratedVideo>[] = [
     accessorKey: "createdAt",
     header: "Generated At",
     cell: ({ row }) => format(new Date(row.getValue("createdAt")), "PPp"),
+  },
+  {
+    accessorKey: "isVisible",
+    header: "Visible to User",
+    cell: ({ row }) => {
+      return (
+        <VideoVisibilityToggle 
+          id={row.original.id} 
+          initialVisibility={row.getValue("isVisible")}
+        />
+      );
+    },
   },
   {
     accessorKey: "testVideoPath",

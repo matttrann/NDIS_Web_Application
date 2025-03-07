@@ -15,6 +15,7 @@ import { storytellers } from "@/config/storytellers";
 import { StorytellerCard } from "@/components/dashboard/storyteller-card";
 import { Label } from "@/components/ui/label";
 import { format } from "date-fns";
+import { GeneratedVideos } from "./generated-videos";
 
 
 export default function VideoGeneratorPage() {
@@ -200,6 +201,9 @@ export default function VideoGeneratorPage() {
           </Button>
         </div>
       </div>
+
+      {/* Generated Videos Section */}
+      {userSubscription?.isPaid && <GeneratedVideos />}
     </div>
   );
   
