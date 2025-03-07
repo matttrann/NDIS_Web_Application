@@ -14,7 +14,8 @@
     "preview": "next build && next start",
     "postinstall": "prisma generate",
     "email": "email dev --dir emails --port 3333",
-    "email:export": "email export"
+    "email:export": "email export",
+    "test-video": "tsx scripts/test-video-composition.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.4.1",

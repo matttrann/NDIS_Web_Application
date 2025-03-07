@@ -873,10 +873,11 @@ IMPORTANT:
       // Run test video composition to generate a test preview video
       console.log('Starting test video composition...');
       try {
-        // Use child_process.spawn to run the test-video-composition.ts script
-        const testProcess = spawn('npx', ['tsx', 'scripts/test-video-composition.ts', requestId], {
-          stdio: 'inherit', // Show output in server logs
-          detached: false
+        // Use pnpm run instead of npx
+        const testProcess = spawn('pnpm', ['run', 'test-video', requestId], {
+          stdio: 'inherit',
+          detached: false,
+          shell: true  // Add this to ensure it works cross-platform
         });
         
         await new Promise((resolve, reject) => {
@@ -886,19 +887,16 @@ IMPORTANT:
               resolve(null);
             } else {
               console.warn(`Test video composition exited with code ${code}`);
-              // We still resolve because we don't want to fail the whole process if just the test video fails
               resolve(null);
             }
           });
           
           testProcess.on('error', (err: Error) => {
             console.error('Failed to start test video composition:', err);
-            // We still resolve because we don't want to fail the whole process if just the test video fails
             resolve(null);
           });
         });
       } catch (testError) {
-        // Log but don't throw - we don't want to fail the whole process if just the test video fails
         console.error('Error running test video composition:', testError);
       }
       
