@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 
 interface QuestionnaireAnswers {
   emotionalState: string;
@@ -59,6 +59,8 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     setLoading(true);
 
     try {
+      const toastId = toast.loading("Submitting questionnaire...");
+      
       const response = await fetch("/api/questionnaire", {
         method: "POST",
         headers: {
@@ -73,20 +75,18 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
       const data = await response.json();
 
       if (response.ok) {
-        router.refresh();
-        toast({
-          title: "Success",
-          description: "Your questionnaire has been submitted!",
+        toast.success("Your questionnaire has been submitted successfully!", {
+          id: toastId,
+          duration: 5000,
         });
+        router.refresh();
       } else {
         throw new Error(data?.error || "Failed to submit questionnaire");
       }
     } catch (error) {
       console.error("Submission error:", error);
-      toast({
-        title: "Error",
-        description: error.message || "Something went wrong. Please try again.",
-        variant: "destructive",
+      toast.error(error.message || "Something went wrong. Please try again.", {
+        duration: 5000,
       });
     } finally {
       setLoading(false);

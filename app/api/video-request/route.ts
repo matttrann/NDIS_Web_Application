@@ -95,6 +95,7 @@ export async function GET(req: Request) {
         createdAt: true,
         updatedAt: true,
         storytellerId: true,
+        isVisible: true,
         user: {
           select: {
             name: true,

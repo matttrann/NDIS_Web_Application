@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import type { UserSubscriptionPlan } from "types";
@@ -73,6 +73,10 @@ export default function VideoGeneratorPage() {
     }
 
     setLoading(true);
+    
+    // Show loading toast
+    const toastId = toast.loading("Submitting video request...");
+    
     try {
       const response = await fetch("/api/video-request", {
         method: "POST",
@@ -91,9 +95,10 @@ export default function VideoGeneratorPage() {
         throw new Error(data.error || "Failed to submit request");
       }
 
-      toast({
-        title: "Success!",
-        description: "Your video request has been submitted successfully.",
+      // Update toast to success
+      toast.success("Your video request has been submitted successfully!", {
+        id: toastId,
+        duration: 5000 // 5 seconds
       });
       
       // Clear selections after successful submission
@@ -103,6 +108,12 @@ export default function VideoGeneratorPage() {
     } catch (err) {
       console.error("Video request error:", err);
       setError("Failed to process your request. Please try again.");
+      
+      // Update toast to error
+      toast.error("Failed to submit video request. Please try again.", {
+        id: toastId,
+        duration: 5000 // 5 seconds
+      });
     } finally {
       setLoading(false);
     }

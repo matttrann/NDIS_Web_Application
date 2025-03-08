@@ -65,12 +65,16 @@ function TestVideoPreview({ testVideoPath }: { testVideoPath: string }) {
   );
 }
 
+// Simplified visibility toggle component that only updates when needed
 function VideoVisibilityToggle({ id, initialVisibility }: { id: string, initialVisibility?: boolean }) {
   const [isVisible, setIsVisible] = useState(initialVisibility ?? false);
   const [isUpdating, setIsUpdating] = useState(false);
 
+  // Update state when initialVisibility changes (e.g., after page refresh)
   useEffect(() => {
-    setIsVisible(initialVisibility ?? false);
+    if (initialVisibility !== undefined) {
+      setIsVisible(initialVisibility);
+    }
   }, [initialVisibility]);
 
   const toggleVisibility = async () => {

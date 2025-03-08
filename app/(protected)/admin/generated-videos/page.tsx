@@ -29,6 +29,7 @@ export default async function GeneratedVideosPage() {
       testVideoPath: true,
       createdAt: true,
       status: true,
+      isVisible: true,
       user: {
         select: {
           name: true,
