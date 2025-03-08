@@ -354,7 +354,7 @@ IMPORTANT:
 
       // Add timeout and polling count
       let attempts = 0;
-      const maxAttempts = 30; // 1 minute maximum wait time (2 seconds * 30)
+      const maxAttempts = 180; // 1 minute maximum wait time (2 seconds * 30)
       
       // Poll for completion
       while (attempts < maxAttempts) {

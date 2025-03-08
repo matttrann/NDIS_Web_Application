@@ -98,7 +98,7 @@ model VideoRequest {
   updatedAt       DateTime      @updatedAt
   questionnaire   Questionnaire @relation(fields: [questionnaireId], references: [id])
   user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  frameKeys        String[]      @db.Text
+  frameKeys       String[]      @db.Text
 
   @@index([userId])
   @@index([questionnaireId])
@@ -106,12 +106,12 @@ model VideoRequest {
 }
 
 model Storyteller {
-  id          String   @id @default(cuid())
-  name        String
-  imageUrl    String   @db.Text
-  s3ImageKey  String   @db.Text
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         String   @id @default(cuid())
+  name       String
+  imageUrl   String
+  s3ImageKey String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 enum UserRole {
