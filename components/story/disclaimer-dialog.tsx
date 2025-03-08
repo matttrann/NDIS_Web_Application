@@ -11,24 +11,22 @@ import {
 import { Button } from "@/components/ui/button";
 
 export function DisclaimerDialog() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   
-  useEffect(() => {
-    // Check if user has already accepted the disclaimer
-    const hasAccepted = localStorage.getItem("storyGeneratorDisclaimerAccepted");
-    if (!hasAccepted) {
-      setOpen(true);
-    }
-  }, []);
-
   const handleAccept = () => {
-    localStorage.setItem("storyGeneratorDisclaimerAccepted", "true");
     setOpen(false);
   };
 
+  useEffect(() => {
+    const closeButton = document.querySelector('[data-state="open"] .DialogContent button');
+    if (closeButton) {
+      closeButton.remove();
+    }
+  }, [open]);
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-[500px]">
+    <Dialog open={open} onOpenChange={() => {}}>
+      <DialogContent className="sm:max-w-[500px]" hideClose>
         <DialogHeader>
           <DialogTitle>Important Notice</DialogTitle>
           <DialogDescription className="space-y-4">
