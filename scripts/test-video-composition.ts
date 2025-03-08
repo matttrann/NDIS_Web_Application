@@ -96,6 +96,31 @@ async function getVideoDuration(videoUrl: string): Promise<number> {
   }
 }
 
+// Add this function to count available frames
+async function countAvailableFrames(basePath: string): Promise<number> {
+  let frameCount = 0;
+  let frameExists = true;
+  
+  while (frameExists && frameCount < 30) { // Set a reasonable upper limit
+    const frameKey = `${basePath}/frames/frame_${frameCount.toString().padStart(4, '0')}.png`;
+    
+    try {
+      // Just check if the frame exists
+      await s3Client.send(new GetObjectCommand({
+        Bucket: process.env.AWS_BUCKET_NAME!,
+        Key: frameKey
+      }));
+      frameCount++;
+    } catch (error) {
+      // Frame doesn't exist
+      frameExists = false;
+    }
+  }
+  
+  // Ensure we have at least one frame
+  return Math.max(frameCount, 1);
+}
+
 async function testVideoComposition(videoRequestId: string) {
   try {
     const s3BasePath = `video-requests/${videoRequestId}`;
@@ -107,9 +132,14 @@ async function testVideoComposition(videoRequestId: string) {
       getSrtContent(`${s3BasePath}/captions.srt`)
     ]);
 
-    // Get frame URLs
+    // First determine how many frames exist
+    console.log('Checking how many frames are available...');
+    const frameCount = await countAvailableFrames(s3BasePath);
+    console.log(`Found ${frameCount} frames for video composition`);
+
+    // Now get URLs only for frames that exist
     const frameUrls = await Promise.all(
-      Array.from({ length: 5 }, (_, i) => 
+      Array.from({ length: frameCount }, (_, i) => 
         getSignedS3Url(`${s3BasePath}/frames/frame_${i.toString().padStart(4, '0')}.png`)
       )
     );

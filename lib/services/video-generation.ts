@@ -518,7 +518,8 @@ IMPORTANT:
         where: { id: basePath.split('/')[1] },
         data: {
           status: "frames_generated",
-          frameKeys: frameKeys
+          frameKeys: frameKeys,
+          frameCount: frameKeys.length
         }
       });
 

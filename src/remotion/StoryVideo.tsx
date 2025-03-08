@@ -19,16 +19,20 @@ export const StoryVideo: React.FC<StoryVideoProps> = ({
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   
+  // Safety check - ensure we have at least one valid frame URL
+  const validFrameUrls = frameUrls.filter(url => url && typeof url === 'string');
+  const safeFrameUrls = validFrameUrls.length > 0 ? validFrameUrls : ['https://example.com/fallback-image.png'];
+  
   // Parse SRT content
   const captions = parseSRT(srtContent);
   const currentCaption = getCurrentCaption(frame, captions);
   
   // Calculate frame transitions based on total duration
   // Each frame should be shown for equal duration throughout the video
-  const frameDuration = Math.floor(durationInFrames / frameUrls.length);
+  const frameDuration = Math.floor(durationInFrames / safeFrameUrls.length);
   const currentFrameIndex = Math.min(
     Math.floor(frame / frameDuration),
-    frameUrls.length - 1
+    safeFrameUrls.length - 1
   );
   
   // Smoother transition between frames
@@ -49,7 +53,7 @@ export const StoryVideo: React.FC<StoryVideoProps> = ({
       <AbsoluteFill style={{ backgroundColor: 'black' }}>
         {/* Current frame */}
         <Img 
-          src={frameUrls[currentFrameIndex]} 
+          src={safeFrameUrls[currentFrameIndex]} 
           style={{ 
             position: 'absolute',
             width: '100%',
@@ -59,9 +63,9 @@ export const StoryVideo: React.FC<StoryVideoProps> = ({
           }} 
         />
         {/* Next frame (for smooth transition) */}
-        {currentFrameIndex < frameUrls.length - 1 && (
+        {currentFrameIndex < safeFrameUrls.length - 1 && (
           <Img 
-            src={frameUrls[currentFrameIndex + 1]} 
+            src={safeFrameUrls[currentFrameIndex + 1]} 
             style={{ 
               position: 'absolute',
               width: '100%',
