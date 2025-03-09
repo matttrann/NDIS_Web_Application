@@ -65,7 +65,8 @@ export async function GET(req: Request) {
         id: true,
         name: true,
         email: true,
-        image: true
+        image: true,
+        description: true
       }
     });
 

@@ -46,6 +46,7 @@ model User {
   email                  String?         @unique
   emailVerified          DateTime?
   image                  String?
+  description            String?         @db.Text
   createdAt              DateTime        @default(now()) @map("created_at")
   updatedAt              DateTime        @default(now()) @map("updated_at")
   role                   UserRole        @default(USER)

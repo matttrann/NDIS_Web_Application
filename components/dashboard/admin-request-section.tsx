@@ -10,9 +10,9 @@ import { Badge } from "@/components/ui/badge";
 import { formatDistance } from 'date-fns';
 
 interface AdminRequestSectionProps {
-  admins: Pick<User, 'id' | 'name' | 'email' | 'image'>[];
+  admins: Pick<User, 'id' | 'name' | 'email' | 'image' | 'description'>[];
   existingRequests: (AdminClientRelationship & {
-    admin: Pick<User, 'id' | 'name' | 'email' | 'image'>;
+    admin: Pick<User, 'id' | 'name' | 'email' | 'image' | 'description'>;
   })[];
 }
 
@@ -96,33 +96,43 @@ export function AdminRequestSection({ admins, existingRequests }: AdminRequestSe
               const status = getRequestStatus(admin.id);
               
               return (
-                <div key={admin.id} className="flex items-center justify-between border-b pb-4 last:border-0 last:pb-0">
-                  <div className="flex items-center gap-3">
-                    <Avatar>
-                      <AvatarImage src={admin.image || ''} />
-                      <AvatarFallback>
-                        {admin.name?.charAt(0) || admin.email?.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <p className="font-medium">{admin.name}</p>
-                      <p className="text-sm text-muted-foreground">{admin.email}</p>
+                <div key={admin.id} className="flex flex-col border-b pb-4 last:border-0 last:pb-0">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Avatar>
+                        <AvatarImage src={admin.image || ''} />
+                        <AvatarFallback>
+                          {admin.name?.charAt(0) || admin.email?.charAt(0)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="font-medium">{admin.name}</p>
+                        <p className="text-sm text-muted-foreground">{admin.email}</p>
+                      </div>
                     </div>
+                    
+                    {status === 'APPROVED' ? (
+                      <Badge variant="success">Approved</Badge>
+                    ) : status === 'PENDING' ? (
+                      <Badge variant="secondary">Request Pending</Badge>
+                    ) : status === 'REJECTED' ? (
+                      <Badge variant="destructive">Request Rejected</Badge>
+                    ) : (
+                      <Button
+                        onClick={() => requestAdmin(admin.id)}
+                        disabled={loading === admin.id}
+                      >
+                        Request Access
+                      </Button>
+                    )}
                   </div>
                   
-                  {status === 'APPROVED' ? (
-                    <Badge variant="success">Approved</Badge>
-                  ) : status === 'PENDING' ? (
-                    <Badge variant="secondary">Request Pending</Badge>
-                  ) : status === 'REJECTED' ? (
-                    <Badge variant="destructive">Request Rejected</Badge>
-                  ) : (
-                    <Button
-                      onClick={() => requestAdmin(admin.id)}
-                      disabled={loading === admin.id}
-                    >
-                      Request Access
-                    </Button>
+                  {admin.description && (
+                    <div className="mt-2 pl-12">
+                      <p className="text-sm text-muted-foreground">
+                        {admin.description}
+                      </p>
+                    </div>
                   )}
                 </div>
               );
