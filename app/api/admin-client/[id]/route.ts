@@ -27,4 +27,29 @@ export async function PATCH(
     console.error("Error updating admin-client relationship:", error);
     return new NextResponse("Internal server error", { status: 500 });
   }
+}
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const user = await getCurrentUser();
+    if (!user || user.role !== "ADMIN") {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+    
+    // Delete the relationship
+    await db.adminClientRelationship.delete({
+      where: { 
+        id: params.id,
+        adminId: user.id // Ensure the admin can only delete their own relationships
+      }
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Error removing client:", error);
+    return new NextResponse("Internal server error", { status: 500 });
+  }
 } 

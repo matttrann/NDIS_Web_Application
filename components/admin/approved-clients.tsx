@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { AdminClientRelationship } from '@prisma/client';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -10,10 +11,24 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { formatDistance } from 'date-fns';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import { TrashIcon } from 'lucide-react';
 
 interface ApprovedClientsProps {
   clients: (AdminClientRelationship & {
@@ -36,6 +51,38 @@ interface ApprovedClientsProps {
 }
 
 export function ApprovedClients({ clients }: ApprovedClientsProps) {
+  const router = useRouter();
+  const [isRemoving, setIsRemoving] = useState<string | null>(null);
+
+  const handleRemoveClient = async (relationshipId: string, clientName: string | null) => {
+    try {
+      setIsRemoving(relationshipId);
+      
+      const response = await fetch(`/api/admin-client/${relationshipId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to remove client');
+      }
+
+      toast.success(
+        `Client ${clientName || 'Unknown'} removed successfully`,
+        {
+          description: 'They will need to request access again if they want to work with you.'
+        }
+      );
+      
+      // Refresh the page to show updated client list
+      router.refresh();
+    } catch (error) {
+      console.error('Error removing client:', error);
+      toast.error('Failed to remove client');
+    } finally {
+      setIsRemoving(null);
+    }
+  };
+
   if (clients.length === 0) {
     return (
       <Card>
@@ -106,13 +153,47 @@ export function ApprovedClients({ clients }: ApprovedClientsProps) {
                     {lastActivity ? formatDistance(new Date(lastActivity), new Date(), { addSuffix: true }) : 'No activity'}
                   </TableCell>
                   <TableCell className="text-right">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => window.location.href = `/admin/client/${client.id}`}
-                    >
-                      View Details
-                    </Button>
+                    <div className="flex items-center justify-end gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.location.href = `/admin/client/${client.id}`}
+                      >
+                        View Details
+                      </Button>
+                      
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            className="text-destructive border-destructive hover:bg-destructive/10"
+                          >
+                            <TrashIcon className="h-4 w-4 mr-1" />
+                            Remove
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Remove Client</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Are you sure you want to remove {client.name || client.email}? They will no longer be able to
+                              access your services and will need to request access again.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => handleRemoveClient(relationship.id, client.name)}
+                              disabled={isRemoving === relationship.id}
+                              className="bg-destructive hover:bg-destructive/90"
+                            >
+                              {isRemoving === relationship.id ? 'Removing...' : 'Remove Client'}
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
                   </TableCell>
                 </TableRow>
               );
