@@ -39,6 +39,8 @@ import {
   Video,
   UserPlus,
   Users,
+  ListChecks,
+
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -128,6 +130,7 @@ export const Icons = {
   database: Database,
   questionnaire: ClipboardList,
   listVideo: Video,
+  listChecks: ListChecks,
 
   twitter: ({ ...props }: LucideProps) => (
     <svg

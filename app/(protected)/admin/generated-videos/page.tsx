@@ -8,11 +8,27 @@ export default async function GeneratedVideosPage() {
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/login");
 
+  // Get approved clients for this admin
+  const approvedClients = await db.adminClientRelationship.findMany({
+    where: {
+      adminId: user.id,
+      status: "APPROVED"
+    },
+    select: {
+      clientId: true
+    }
+  });
+
+  const clientIds = approvedClients.map(rel => rel.clientId);
+
   const pageSize = 10;
   const totalCount = await db.videoRequest.count({
     where: {
       testVideoPath: {
         not: null
+      },
+      userId: {
+        in: clientIds
       }
     }
   });
@@ -21,6 +37,9 @@ export default async function GeneratedVideosPage() {
     where: {
       testVideoPath: {
         not: null
+      },
+      userId: {
+        in: clientIds
       }
     },
     select: {
@@ -57,7 +76,7 @@ export default async function GeneratedVideosPage() {
     <div className="container grid gap-8">
       <DashboardHeader
         heading="Generated Videos"
-        text="View and manage test videos generated for users."
+        text="View and manage test videos generated for your clients."
       />
       <GeneratedVideosClient 
         initialVideos={initialData.data} 

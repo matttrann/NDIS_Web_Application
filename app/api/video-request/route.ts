@@ -72,12 +72,26 @@ export async function GET(req: Request) {
     const hasTestVideo = searchParams.get("hasTestVideo") === "true";
     const skip = (page - 1) * pageSize;
 
-    // Build where clause
-    const where = hasTestVideo ? {
-      testVideoPath: {
-        not: null
+    // Get approved clients for this admin
+    const approvedClients = await db.adminClientRelationship.findMany({
+      where: {
+        adminId: user.id,
+        status: "APPROVED"
+      },
+      select: {
+        clientId: true
       }
-    } : {};
+    });
+
+    const clientIds = approvedClients.map(rel => rel.clientId);
+
+    // Build where clause with approved client filtering
+    const where = {
+      ...(hasTestVideo ? { testVideoPath: { not: null } } : {}),
+      userId: {
+        in: clientIds
+      }
+    };
 
     // Get total count for pagination
     const totalCount = await db.videoRequest.count({ where });

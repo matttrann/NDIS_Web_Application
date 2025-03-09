@@ -15,7 +15,7 @@ export const adminConfig: AdminConfig = {
     {
       title: "Video Requests",
       href: "/admin/video-requests",
-      icon: "video",
+      icon: "listChecks",
     },
     {
       title: "Questionnaire Results",
