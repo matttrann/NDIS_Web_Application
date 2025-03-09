@@ -1,14 +1,20 @@
-import { notFound, redirect } from "next/navigation";
-
+import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/session";
 
-interface ProtectedLayoutProps {
+interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
-export default async function Dashboard({ children }: ProtectedLayoutProps) {
+export default async function AdminLayout({ children }: AdminLayoutProps) {
   const user = await getCurrentUser();
-  if (!user || user.role !== "ADMIN") redirect("/login");
+  
+  if (!user || user.role !== "ADMIN") {
+    redirect("/login");
+  }
 
-  return <>{children}</>;
+  return (
+    <div className="flex flex-col gap-8">
+      {children}
+    </div>
+  );
 }

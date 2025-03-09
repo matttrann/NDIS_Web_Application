@@ -15,7 +15,26 @@ export default async function QuestionnaireResultsPage() {
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/login");
 
+  // Get approved clients
+  const approvedClients = await db.adminClientRelationship.findMany({
+    where: {
+      adminId: user.id,
+      status: "APPROVED"
+    },
+    select: {
+      clientId: true
+    }
+  });
+
+  const clientIds = approvedClients.map(rel => rel.clientId);
+
+  // Only fetch questionnaires from assigned clients
   const questionnaires = await db.questionnaire.findMany({
+    where: {
+      userId: {
+        in: clientIds
+      }
+    },
     include: {
       user: {
         select: {

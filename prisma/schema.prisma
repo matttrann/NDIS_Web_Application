@@ -57,6 +57,8 @@ model User {
   videoRequests          VideoRequest[]
   accounts               Account[]
   sessions               Session[]
+  adminRelations         AdminClientRelationship[] @relation("AdminRelations")
+  clientRelations        AdminClientRelationship[] @relation("ClientRelations")
 
   @@map("users")
 }
@@ -115,7 +117,29 @@ model Storyteller {
   updatedAt  DateTime @updatedAt
 }
 
+model AdminClientRelationship {
+  id        String   @id @default(cuid())
+  adminId   String
+  clientId  String
+  status    AdminClientStatus @default(PENDING)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  admin     User     @relation("AdminRelations", fields: [adminId], references: [id], onDelete: Cascade)
+  client    User     @relation("ClientRelations", fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@unique([adminId, clientId])
+  @@index([adminId])
+  @@index([clientId])
+  @@map("admin_client_relationships")
+}
+
 enum UserRole {
   ADMIN
   USER
+}
+
+enum AdminClientStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }

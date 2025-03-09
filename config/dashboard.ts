@@ -10,7 +10,7 @@ export const sidebarLinks: SidebarNavItem[] = [
         href: "/dashboard",
         icon: "dashboard",
         title: "Dashboard",
-        authorizeOnly: UserRole.ADMIN,
+        authorizeOnly: UserRole.USER,
       },
       {
         href: "/dashboard/questionnaire",
@@ -39,7 +39,7 @@ export const sidebarLinks: SidebarNavItem[] = [
       },
       {
         href: "/admin/video-requests",
-        
+        icon: "video",
         title: "Video Requests",
         authorizeOnly: UserRole.ADMIN,
       },
@@ -54,16 +54,17 @@ export const sidebarLinks: SidebarNavItem[] = [
   {
     title: "OPTIONS",
     items: [
-
-          {
+      {
         href: "/dashboard/billing",
         icon: "billing",
         title: "Billing",
         authorizeOnly: UserRole.USER,
       },
-      
-      { href: "/dashboard/settings", icon: "settings", title: "Settings" },
-
+      {
+        href: "/dashboard/settings",
+        icon: "settings",
+        title: "Settings"
+      },
     ],
   },
 ];

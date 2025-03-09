@@ -130,7 +130,7 @@ export function DashboardSidebar({ links }: DashboardSidebarProps) {
                                     "cursor-not-allowed opacity-80 hover:bg-transparent hover:text-muted-foreground",
                                 )}
                               >
-                                <Icon className="size-5" />
+                                {Icon && <Icon className="size-5" />}
                                 {item.title}
                                 {item.badge && (
                                   <Badge className="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full">
@@ -154,7 +154,7 @@ export function DashboardSidebar({ links }: DashboardSidebarProps) {
                                     )}
                                   >
                                     <span className="flex size-full items-center justify-center">
-                                      <Icon className="size-5" />
+                                      {Icon && <Icon className="size-5" />}
                                     </span>
                                   </Link>
                                 </TooltipTrigger>
@@ -170,8 +170,6 @@ export function DashboardSidebar({ links }: DashboardSidebarProps) {
                   </section>
                 ))}
               </nav>
-
-
             </div>
           </aside>
         </ScrollArea>

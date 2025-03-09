@@ -18,10 +18,10 @@ export default async function Dashboard({ children }: ProtectedLayoutProps) {
 
   if (!user) redirect("/login");
 
-  if (user.role !== "ADMIN" && typeof window !== "undefined") {
+  if (user.role === "ADMIN" && typeof window !== "undefined") {
     const path = window.location.pathname;
     if (path === "/dashboard") {
-      redirect("/dashboard/");
+      redirect("/admin");
     }
   }
 

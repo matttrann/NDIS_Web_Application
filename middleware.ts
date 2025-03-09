@@ -14,14 +14,14 @@ export default auth((req) => {
     );
   }
 
-  // Redirect non-admin users from /dashboard to questionnaire
-  if (isLoggedIn && !isAdmin && pathname === "/dashboard") {
+  // Redirect non-admin users from /admin paths
+  if (isLoggedIn && !isAdmin && pathname.startsWith("/admin")) {
     return NextResponse.redirect(new URL("/dashboard/questionnaire", req.url));
   }
 
-  // Allow access to /dashboard for admins
-  if (isAdmin && pathname.startsWith("/admin")) {
-    return NextResponse.next();
+  // Redirect admin users from /dashboard to /admin
+  if (isLoggedIn && isAdmin && pathname === "/dashboard") {
+    return NextResponse.redirect(new URL("/admin", req.url));
   }
 
   return NextResponse.next();

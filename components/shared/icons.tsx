@@ -37,6 +37,8 @@ import {
   ClipboardList,
   Sparkles,
   Video,
+  UserPlus,
+  Users,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -148,4 +150,6 @@ export const Icons = {
   warning: AlertTriangle,
   DollarSign: DollarSignIcon,
   clipboardList: ClipboardList,
+  userPlus: UserPlus,
+  users: Users,
 };
