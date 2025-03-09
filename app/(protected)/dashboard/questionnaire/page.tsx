@@ -5,6 +5,7 @@ import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { QuestionnaireForm } from "@/app/(protected)/dashboard/questionnaire/questionnaire-form";
 import { ClientQuestionnaire } from "./client-page";
+import { db } from "@/lib/db";
 
 export const metadata = constructMetadata({
   title: "Questionnaire – Skills4Life",
@@ -22,6 +23,27 @@ export default async function QuestionnairePage() {
   if (user.role === "ADMIN") {
     redirect("/admin");
   }
+  
+  // Check if the user has any approved admin relationships
+  const approvedAdminRelationships = await db.adminClientRelationship.findMany({
+    where: {
+      clientId: user.id,
+      status: "APPROVED"
+    }
+  });
+  
+  // Get all admin relationships for the user
+  const allAdminRelationships = await db.adminClientRelationship.findMany({
+    where: {
+      clientId: user.id
+    }
+  });
 
-  return <ClientQuestionnaire user={user} />;
+  return (
+    <ClientQuestionnaire 
+      user={user} 
+      hasApprovedAdmin={approvedAdminRelationships.length > 0}
+      hasRequestedAdmin={allAdminRelationships.length > 0}
+    />
+  );
 }
