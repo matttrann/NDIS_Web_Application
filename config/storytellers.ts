@@ -5,7 +5,7 @@ interface Storyteller {
   s3imageKey: string;
   imageUrl?: string;
 }
-
+// lower egress
 export const storytellers: Storyteller[] = [
   {
     id: "top g",
