@@ -1,17 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/session";
 import { db } from "@/lib/db";
-import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-
-// Initialize S3 client
-const s3Client = new S3Client({
-  region: process.env.AWS_REGION!,
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-  },
-});
+import { getSignedUrl as getCloudFrontSignedUrl } from "@aws-sdk/cloudfront-signer";
 
 export async function GET(req: Request) {
   try {
@@ -57,13 +47,19 @@ export async function GET(req: Request) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const command = new GetObjectCommand({
-      Bucket: process.env.AWS_BUCKET_NAME!,
-      Key: key,
-    });
-
-    const signedUrl = await getSignedUrl(s3Client, command, {
-      expiresIn: 3600, // URL expires in 1 hour
+    // CLOUDFRONT IMPLEMENTATION: Generate a signed CloudFront URL instead of S3 URL
+    const cloudFrontDomain = process.env.CLOUDFRONT_DOMAIN!;
+    const url = `https://${cloudFrontDomain}/${key}`;
+    
+    // Set expiration time (e.g., 1 hour from now)
+    const expiry = new Date();
+    expiry.setHours(expiry.getHours() + 1);
+    
+    const signedUrl = getCloudFrontSignedUrl({
+      url,
+      keyPairId: process.env.CLOUDFRONT_KEY_PAIR_ID!,
+      dateLessThan: expiry.toISOString(),
+      privateKey: process.env.CLOUDFRONT_PRIVATE_KEY!
     });
 
     return NextResponse.json({ url: signedUrl });

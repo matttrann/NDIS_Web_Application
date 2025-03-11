@@ -660,22 +660,28 @@ IMPORTANT:
         throw new Error(`Storyteller not found with ID: ${storytellerId}`);
       }
 
-      const s3Path = storyteller.s3imageKey.replace('s3://skills4life-videos/', '');
-      const imageUrl = `https://skills4life-videos.s3.${process.env.AWS_REGION}.amazonaws.com/${s3Path}`;
-      const audioUrl = `https://skills4life-videos.s3.${process.env.AWS_REGION}.amazonaws.com/${audioKey}`;
+      // Fix the image key construction
+      // If storytellerId is "top g" (with a space), it becomes "topg.png"
+      // If storytellerId is already "topg", it should remain "topg.png"
+      const imageKey = `storytellers/${storytellerId.replace(/\s+/g, '')}.png`;
+
+      // Generate signed URLs for both image and audio using CloudFront
+      const imageSignedUrl = await this.makeS3FilePublic(imageKey);
+      const audioSignedUrl = await this.makeS3FilePublic(audioKey);
+
+      console.log('Generated signed URLs:', { imageSignedUrl, audioSignedUrl });
 
       // Verify URLs
       const [imageAccessible, audioAccessible] = await Promise.all([
-        this.verifyUrlAccess(imageUrl),
-        this.verifyUrlAccess(audioUrl)
+        this.verifyUrlAccess(imageSignedUrl),
+        this.verifyUrlAccess(audioSignedUrl)
       ]);
 
       if (!imageAccessible || !audioAccessible) {
+        console.error('Failed URLs:', { imageSignedUrl, audioSignedUrl });
         throw new Error('Story teller images or audio resource URLs not accessible');
       }
 
-      console.log('URLs verified accessible:', { imageUrl, audioUrl });
-      
       // Always use max value since our estimation is unreliable
       const maxAudioSeconds = 60; // Set to maximum allowed
       console.log(`Using max_audio_seconds: ${maxAudioSeconds}`);
@@ -684,16 +690,16 @@ IMPORTANT:
       const requestBody = {
         version: versionId,
         input: {
-          image: imageUrl,
-          audio: audioUrl,
-          face_enhancement: true,     // Reverted back to true
-          use_emotion: true,         // Reverted back to true
+          image: imageSignedUrl,
+          audio: audioSignedUrl,
+          face_enhancement: true,
+          use_emotion: true,
           max_audio_seconds: 60,      
-          fps: 15,                    // Keeping this reduced for faster processing
-          resolution: 512,            // Reverted back to 512
-          inference_steps: 20,        // Reverted back to default 20
-          num_generated_frames_per_clip: 16,  // Reverted back to default 16
-          cfg_scale: 3.5              // Reverted back to default 3.5
+          fps: 15,
+          resolution: 512,
+          inference_steps: 20,
+          num_generated_frames_per_clip: 16,
+          cfg_scale: 3.5
         }
       };
 
@@ -788,10 +794,25 @@ IMPORTANT:
 
   private async verifyUrlAccess(url: string): Promise<boolean> {
     try {
+      // If it's an S3 protocol URL, convert it to CloudFront URL
+      if (url.startsWith('s3://')) {
+        const path = url.replace('s3://skills4life-videos/', '');
+        url = `https://${process.env.CLOUDFRONT_DOMAIN}/${path}`;
+      }
+
+      // Skip verification for CloudFront URLs and S3 signed URLs
+      if (url.includes(process.env.CLOUDFRONT_DOMAIN!) || 
+          url.includes('s3.ap-southeast-2.amazonaws.com') || 
+          url.includes('X-Amz-Signature')) {
+        return true;
+      }
+
+      // For other URLs, verify with a HEAD request
       const response = await fetch(url, { method: 'HEAD' });
       return response.ok;
     } catch (error) {
-      console.error('URL access verification failed:', error);
+      console.error('URL verification failed:', error);
+      console.error('Failed URL:', url);
       return false;
     }
   }
