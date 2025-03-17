@@ -146,7 +146,7 @@ IMPORTANT:
         name: 'en-AU-Standard-B',
         ssmlGender: 'MALE',
         pitch: -2,  // Deeper voice
-        speakingRate: 0.9
+        speakingRate: 1.1
       },
       'la flame': {
         languageCode: 'en-US',
@@ -158,7 +158,8 @@ IMPORTANT:
         languageCode: 'en-GB',
         name: 'en-GB-Standard-B',
         ssmlGender: 'MALE',
-        pitch: 0
+        pitch: 0,
+        speakingRate: 1.1
       },
       'ishowspeed': {
         languageCode: 'en-US',
@@ -172,19 +173,21 @@ IMPORTANT:
         languageCode: 'en-US',
         name: 'en-US-Standard-F',
         ssmlGender: 'FEMALE',
-        pitch: 2
+        pitch: 2,
+        speakingRate: 1.1
       },
       'kim kardashian': {
         languageCode: 'en-US',
         name: 'en-US-Standard-H',
         ssmlGender: 'FEMALE',
-        speakingRate: 0.9
+        speakingRate: 1.1
       },
       'lisa': {
         languageCode: 'en-AU',
         name: 'en-AU-Standard-A',
         ssmlGender: 'FEMALE',
-        pitch: 1
+        pitch: 1,
+        speakingRate: 1.1
       },
       'ironmouse': {
         languageCode: 'en-US',
@@ -213,13 +216,15 @@ IMPORTANT:
         languageCode: 'en-AU',
         name: 'en-AU-Standard-A',
         ssmlGender: 'FEMALE',
-        pitch: 2
+        pitch: 2,
+        speakingRate: 1.1
       },
       'adolescent boy': {
         languageCode: 'en-AU',
         name: 'en-AU-Standard-B',
         ssmlGender: 'MALE',
-        pitch: 1
+        pitch: 1,
+        speakingRate: 1.1
       },
 
       // Animals (using different accents and pitches)
@@ -228,7 +233,7 @@ IMPORTANT:
         name: 'en-AU-Standard-A',
         ssmlGender: 'FEMALE',
         pitch: 1,
-        speakingRate: 0.9
+        speakingRate: 1.1
       },
       'kangaroo': {
         languageCode: 'en-AU',
@@ -242,7 +247,7 @@ IMPORTANT:
         name: 'en-US-Standard-D',
         ssmlGender: 'MALE',
         pitch: -4,
-        speakingRate: 0.9
+        speakingRate: 1.1
       },
 
       // Cultural voices
@@ -251,7 +256,7 @@ IMPORTANT:
         name: 'en-AU-Standard-B',
         ssmlGender: 'MALE',
         pitch: -2,  // Deeper voice
-        speakingRate: 0.9
+        speakingRate: 1.1
       }
     };
 
