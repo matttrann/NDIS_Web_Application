@@ -30,31 +30,50 @@ pnpm install
 Create `.env` and `.env.local` file with these variables, furthermore refer to `.env.example` for specifics:
 ```bash
 # Authentication
-AUTH_SECRET=your_secret_key
-NEXTAUTH_URL=http://localhost:3000
-GOOGLE_CLIENT_ID=your_google_id
-GOOGLE_CLIENT_SECRET=your_google_secret
-GITHUB_OAUTH_TOKEN=your_github_token
+# App
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+
+# Auth
+AUTH_SECRET=""  # Generate at https://generate-secret.vercel.app/32
+GOOGLE_CLIENT_ID=""  # From Google Cloud Console
+GOOGLE_CLIENT_SECRET=""  # From Google Cloud Console
+GITHUB_OAUTH_TOKEN=""  # From GitHub Developer Settings
+  
 
 # Database
-DATABASE_URL="postgresql://user:password@localhost:5432/skills4life?schema=public"
-
-# Payments
-STRIPE_API_KEY=sk_test_...
-STRIPE_WEBHOOK_SECRET=whsec_...
-NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PLAN_ID=price_...
-NEXT_PUBLIC_STRIPE_PRO_YEARLY_PLAN_ID=price_...
-
-# Storage
-AWS_REGION=your_region
-AWS_BUCKET_NAME=your_bucket
-AWS_ACCESS_KEY_ID=your_key
-AWS_SECRET_ACCESS_KEY=your_secret
+DATABASE_URL=""
+  
 
 # Email
-RESEND_API_KEY=re_...
-EMAIL_FROM=no-reply@example.com
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+RESEND_API_KEY=""  # From Resend Dashboard
+EMAIL_FROM=""  # Your sender email
+
+# Stripe
+STRIPE_API_KEY=""  # From Stripe Dashboard
+STRIPE_WEBHOOK_SECRET=""  # From Stripe Dashboard
+NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PLAN_ID=""  # From Stripe Products/Prices
+NEXT_PUBLIC_STRIPE_PRO_YEARLY_PLAN_ID=""  # From Stripe Products/Prices  
+
+# Gemini
+GEMINI_API_KEY=""
+# Add these new variables for video generation
+GOOGLE_API_KEY="" # Get from Google Cloud Console - Enable Cloud Text-to-Speech API
+ASSEMBLYAI_API_KEY="" # Get from AssemblyAI Dashboard for Captions 
+REPLICATE_API_TOKEN="" # Get from Replicate Dashboard for AI API Image and Lip Sync Generation
+
+# AWS
+AWS_REGION=""
+AWS_ACCESS_KEY_ID=""
+AWS_SECRET_ACCESS_KEY=""
+AWS_BUCKET_NAME="skills4life-videos"
+
+# Bucket directory should be skills4life-videos as bucket name followed by /videos/
+
+# CDN AWS CloudFront
+CLOUDFRONT_DOMAIN=""
+CLOUDFRONT_KEY_PAIR_ID=""
+CLOUDFRONT_PRIVATE_KEY=""
+
 ```
 
 4. **Database Setup**
