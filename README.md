@@ -55,7 +55,7 @@ NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PLAN_ID=""  # From Stripe Products/Prices
 NEXT_PUBLIC_STRIPE_PRO_YEARLY_PLAN_ID=""  # From Stripe Products/Prices  
 
 # Gemini
-GEMINI_API_KEY="AIzaSyB3hv2HNaqBIYfDxQ4gZSxRtLM6Z4e8KKE"
+GEMINI_API_KEY=""
 
 # Add these new variables for video generation
 GOOGLE_API_KEY="" # Get from Google Cloud Console - Enable Cloud Text-to-Speech API
