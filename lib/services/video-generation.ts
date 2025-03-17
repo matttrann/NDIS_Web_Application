@@ -76,7 +76,7 @@ export class VideoGenerationService {
 ROLE: You are creating content for young children's educational television.
 
 STORY REQUIREMENTS:
-- Length: Maximum 100 words (for 30-second narration)
+- Length: Maximum 150 words (for 2-minute narration)
 - Target audience: Young children (ages 4-10)
 - Theme: Simple positive message or basic life skill
 - Content: Must be G-rated, absolutely safe for children
@@ -122,7 +122,7 @@ EXAMPLE SAFE TOPICS:
 - Learning something new at school
 
 IMPORTANT: 
-- Story MUST be under 100 words
+- Story MUST be under 180 words
 - Every element must be completely safe and non-threatening
 - Think "Playschool" or "Bluey" level of content safety`;
 

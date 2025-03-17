@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 
 // Constants for word limits
 const MIN_WORD_COUNT = 40;
-const MAX_WORD_COUNT = 100;
+const MAX_WORD_COUNT = 150;
 
 interface ScriptReviewProps {
   videoRequestId: string;
