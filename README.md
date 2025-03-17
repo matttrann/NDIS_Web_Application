@@ -29,7 +29,6 @@ pnpm install
 3. **Environment Setup**
 Create `.env` and `.env.local` file with these variables, furthermore refer to `.env.example` for specifics:
 ```bash
-# Authentication
 # App
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
@@ -37,16 +36,17 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 AUTH_SECRET=""  # Generate at https://generate-secret.vercel.app/32
 GOOGLE_CLIENT_ID=""  # From Google Cloud Console
 GOOGLE_CLIENT_SECRET=""  # From Google Cloud Console
-GITHUB_OAUTH_TOKEN=""  # From GitHub Developer Settings
+GITHUB_OAUTH_TOKEN=your_github_token  # From GitHub Developer Settings
   
 
 # Database
+# DATABASE_URL=""  # From Neon Dashboard
 DATABASE_URL=""
   
 
 # Email
 RESEND_API_KEY=""  # From Resend Dashboard
-EMAIL_FROM=""  # Your sender email
+EMAIL_FROM="onboarding@resend.dev"  # Your sender email
 
 # Stripe
 STRIPE_API_KEY=""  # From Stripe Dashboard
@@ -55,19 +55,23 @@ NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PLAN_ID=""  # From Stripe Products/Prices
 NEXT_PUBLIC_STRIPE_PRO_YEARLY_PLAN_ID=""  # From Stripe Products/Prices  
 
 # Gemini
-GEMINI_API_KEY=""
+GEMINI_API_KEY="AIzaSyB3hv2HNaqBIYfDxQ4gZSxRtLM6Z4e8KKE"
+
 # Add these new variables for video generation
 GOOGLE_API_KEY="" # Get from Google Cloud Console - Enable Cloud Text-to-Speech API
+GOOGLE_TTS_API_KEY=""
 ASSEMBLYAI_API_KEY="" # Get from AssemblyAI Dashboard for Captions 
 REPLICATE_API_TOKEN="" # Get from Replicate Dashboard for AI API Image and Lip Sync Generation
+
+# # AI Services
+# GOOGLE_TTS_API_KEY=""
+# ASSEMBLYAI_API_KEY=""
 
 # AWS
 AWS_REGION=""
 AWS_ACCESS_KEY_ID=""
 AWS_SECRET_ACCESS_KEY=""
 AWS_BUCKET_NAME="skills4life-videos"
-
-# Bucket directory should be skills4life-videos as bucket name followed by /videos/
 
 # CDN AWS CloudFront
 CLOUDFRONT_DOMAIN=""
