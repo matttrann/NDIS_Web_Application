@@ -107,9 +107,14 @@ pnpm start
 3. Configure webhook endpoint to `/api/webhooks/stripe`
 
 ### AWS S3 Configuration
-1. Create S3 bucket with proper permissions
+1. Create S3 bucket with proper permissions including Cloudfront
 2. Configure CORS policy for bucket
 3. Set AWS credentials in environment
+
+### AWS Cloudfront Configuration
+1. Create Cloudfront distribution
+2. Set origin settings
+3. Configure Cache settings
 
 ### Email Setup
 1. Create Resend account and verify domain
