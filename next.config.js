@@ -2,6 +2,8 @@ const { withContentlayer } = require("next-contentlayer2");
 
 import("./env.mjs");
 
+const withPWA = require("next-pwa");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -31,6 +33,12 @@ const nextConfig = {
     AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
   },
+  pwa: {
+    dest: "public",
+    register: true,
+    skipWaiting: true,
+    disable: process.env.NODE_ENV === 'development',
+  },
 };
 
-module.exports = withContentlayer(nextConfig);
+module.exports = withContentlayer(withPWA(nextConfig));
