@@ -10,6 +10,7 @@ import { Slider } from "@/components/ui/slider";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/shared/icons";
+import { ConfettiCelebration } from "@/components/shared/confetti-celebration";
 
 interface QuestionnaireAnswers {
   emotionalState: string;
@@ -59,6 +60,9 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   
   // Track validation errors
   const [validationError, setValidationError] = useState("");
+
+  // Add state for celebration
+  const [showCelebration, setShowCelebration] = useState(false);
 
   // Function to check if the current question has been answered
   const isCurrentQuestionAnswered = (): boolean => {
@@ -151,7 +155,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
           <SelectItem value="😐 Neutral">😐 Neutral</SelectItem>
           <SelectItem value="😞 Sad">😞 Sad</SelectItem>
           <SelectItem value="😰 Anxious">😰 Anxious</SelectItem>
-          <SelectItem value="😡 Angry">😡 Angry</SelectItem>
+          <SelectItem value="😡 Angry">�� Angry</SelectItem>
           <SelectItem value="💤 Tired">💤 Tired</SelectItem>
         </SelectContent>
       </Select>
@@ -433,7 +437,6 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate all questions before submitting
     if (!validateAllQuestions()) {
       return;
     }
@@ -454,9 +457,13 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
         }),
       });
 
-      const data = await response.json();
-
       if (response.ok) {
+        // Trigger the confetti celebration
+        setShowCelebration(true);
+        
+        // Stop the celebration after 5 seconds
+        setTimeout(() => setShowCelebration(false), 5000);
+
         toast.success("Your questionnaire has been submitted successfully!", {
           id: toastId,
           duration: 5000,
@@ -574,6 +581,9 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
           )}
         </div>
       </form>
+
+      {/* Add the confetti celebration */}
+      {showCelebration && <ConfettiCelebration duration={5000} />}
     </div>
   );
 } 
