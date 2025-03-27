@@ -1,7 +1,10 @@
 // Optional: configure or set up a testing framework before each test.
 // If you delete this file, remove `setupFilesAfterEnv` from `jest.config.js`
 
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom';
+
+// Make jest.fn() global
+global.jest = jest;
 
 // Mock next/router
 jest.mock('next/router', () => ({
