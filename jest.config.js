@@ -20,7 +20,10 @@ const customJestConfig = {
     '@/config/subscriptions': '<rootDir>/__tests__/matt/mocks/subscriptions.mock.js',
     '@/lib/subscription': '<rootDir>/__tests__/matt/mocks/subscription.mock.js',
     '@/actions/generate-user-stripe': '<rootDir>/__tests__/matt/mocks/generate-user-stripe.mock.js',
-    '@/app/api/webhooks/stripe/route': '<rootDir>/__tests__/matt/mocks/stripe-webhook.mock.js'
+    '@/app/api/webhooks/stripe/route': '<rootDir>/__tests__/matt/mocks/stripe-webhook.mock.js',
+    // Mock the fonts module
+    'assets/fonts': '<rootDir>/__tests__/matt/mocks/fonts.mock.js',
+    'next/font/(.*)': '<rootDir>/__tests__/matt/mocks/fonts.mock.js'
   },
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
@@ -29,7 +32,7 @@ const customJestConfig = {
   ],
   transform: {
     // Use babel-jest to transpile tests with the next/babel preset
-    '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
+    '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'], configFile: './.babelrc.test' }],
   },
   transformIgnorePatterns: [
     // Transform ES modules in node_modules
