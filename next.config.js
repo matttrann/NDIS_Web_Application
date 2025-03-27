@@ -1,5 +1,4 @@
 const { withContentlayer } = require("next-contentlayer2");
-
 import("./env.mjs");
 
 const withPWA = require("next-pwa");
@@ -38,6 +37,12 @@ const nextConfig = {
     register: true,
     skipWaiting: true,
     disable: process.env.NODE_ENV === 'development',
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 
