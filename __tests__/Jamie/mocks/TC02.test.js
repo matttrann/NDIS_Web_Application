@@ -1,4 +1,4 @@
-import { listS3Objects } from "@/lib/s3"; // Adjust the path as needed
+import { listS3Objects } from "@/lib/s3";
 
 jest.mock("@aws-sdk/client-s3", () => {
   return {
@@ -51,6 +51,6 @@ describe("S3 Video Retrieval", () => {
 
     const videos = await listS3Objects();
 
-    expect(videos).toEqual([]); // Ensure it returns an empty array on error
+    expect(videos).toEqual([]); 
   });
 });
