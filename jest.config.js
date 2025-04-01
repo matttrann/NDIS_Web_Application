@@ -33,6 +33,7 @@ const customJestConfig = {
   transform: {
     // Use babel-jest to transpile tests with the next/babel preset
     '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'], configFile: './.babelrc.test' }],
+    '^.+\\.mjs$': 'babel-jest',
   },
   transformIgnorePatterns: [
     // Transform ES modules in node_modules
