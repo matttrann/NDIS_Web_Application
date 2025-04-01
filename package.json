@@ -131,6 +131,8 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.19.3",
     "typescript": "5.5.3",
-    "unist-util-visit": "^5.0.0"
+    "undici": "^7.6.0",
+    "unist-util-visit": "^5.0.0",
+    "web-streams-polyfill": "^4.1.0"
   }
 }
