@@ -1,11 +1,21 @@
-import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { cookies } from 'next/headers';
+import { getToken } from 'next-auth/jwt';
 
-export default auth((req) => {
+export const runtime = 'experimental-edge';
+
+export async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
-  const isLoggedIn = !!req.auth?.user;
-  const isAdmin = req.auth?.user?.role === "ADMIN";
+
+  // Get the token directly using JWT
+  const token = await getToken({
+    req,
+    secret: process.env.AUTH_SECRET,
+  });
+
+  const isLoggedIn = !!token;
+  const isAdmin = token?.role === "ADMIN";
 
   // Redirect logged-in users from auth pages
   if (isLoggedIn && pathname === "/login") {
@@ -25,7 +35,7 @@ export default auth((req) => {
   }
 
   return NextResponse.next();
-});
+}
 
 export const config = {
   matcher: ["/login", "/dashboard", "/admin"],

@@ -155,7 +155,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
           <SelectItem value="😐 Neutral">😐 Neutral</SelectItem>
           <SelectItem value="😞 Sad">😞 Sad</SelectItem>
           <SelectItem value="😰 Anxious">😰 Anxious</SelectItem>
-          <SelectItem value="😡 Angry">�� Angry</SelectItem>
+          <SelectItem value="😡 Angry">😡 Angry</SelectItem>
           <SelectItem value="💤 Tired">💤 Tired</SelectItem>
         </SelectContent>
       </Select>
