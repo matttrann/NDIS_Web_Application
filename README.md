@@ -1,5 +1,7 @@
 # Skills4Life Platform
 
+![Alt text](https://raw.githubusercontent.com/matttrann/NDIS_Web_Application/main/assets/asset.png)
+
 A Next.js-based platform with authentication, payments, and content management.
 
 ## Prerequisites
