@@ -17,7 +17,11 @@ const customJestConfig = {
     '@/lib/stripe': '<rootDir>/__tests__/matt/mocks/stripe.mock.js',
     '@/lib/db': '<rootDir>/__tests__/matt/mocks/db.mock.js',
     '@/auth': '<rootDir>/__tests__/matt/mocks/auth.mock.js',
-    '@/config/subscriptions': '<rootDir>/__tests__/matt/mocks/subscriptions.mock.js',
+    '@/config/subscriptions': {
+      "__tests__/grant/": '<rootDir>/__tests__/grant/mocks/subscriptions.mock.js', 
+      "__tests__/matt/": '<rootDir>/__tests__/matt/mocks/subscriptions.mock.js',
+      "default": '<rootDir>/__tests__/matt/mocks/subscriptions.mock.js'
+    },
     '@/lib/subscription': '<rootDir>/__tests__/matt/mocks/subscription.mock.js',
     '@/actions/generate-user-stripe': '<rootDir>/__tests__/matt/mocks/generate-user-stripe.mock.js',
     '@/app/api/webhooks/stripe/route': '<rootDir>/__tests__/matt/mocks/stripe-webhook.mock.js',
@@ -28,7 +32,8 @@ const customJestConfig = {
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/.next/',
-    '<rootDir>/cypress/'
+    '<rootDir>/cypress/',
+    '<rootDir>/__tests__/*/mocks/'
   ],
   transform: {
     // Use babel-jest to transpile tests with the next/babel preset
