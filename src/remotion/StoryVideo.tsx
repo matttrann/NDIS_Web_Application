@@ -90,6 +90,7 @@ export const StoryVideo: React.FC<StoryVideoProps> = ({
         border: '4px solid white'
       }}>
         <Video 
+          data-testid="avatar-video"
           src={lipsyncVideoUrl} 
           style={{ 
             width: '100%', 

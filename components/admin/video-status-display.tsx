@@ -45,7 +45,7 @@ export function VideoStatusDisplay({ status, id }: VideoStatusDisplayProps) {
     <div className="space-y-3 min-w-[200px]">
       <div>
         <div className="flex items-center gap-2">
-          <span className={cn(
+          <span role="status-indicator" className={cn(
             "h-2 w-2 rounded-full",
             status === "completed" ? "bg-green-500" :
             status === "failed" || status === "script_rejected" ? "bg-red-500" :
