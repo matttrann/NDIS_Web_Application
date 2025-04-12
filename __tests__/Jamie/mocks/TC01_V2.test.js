@@ -12,7 +12,7 @@
 
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { VideoStatusDisplay } from '@/components/admin/video-status-display';
+import { VideoStatusDisplay } from '../testenv/MockVideoStatus';
 import '@testing-library/jest-dom';
 
 // Mock fetch globally

@@ -10,7 +10,7 @@ const customJestConfig = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '^@t3-oss/env-nextjs$': '<rootDir>/lib/env/env-nextjs.js', // 👈 add this line
+    '^@t3-oss/env-nextjs$': '<rootDir>/__tests__/Jamie/testenv/env-nextjs.js',
   },
   transformIgnorePatterns: [
     '/node_modules/(?!(@t3-oss)/)' 
@@ -18,7 +18,8 @@ const customJestConfig = {
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/.next/',
-    '<rootDir>/cypress/'
+    '<rootDir>/cypress/', 
+    '<rootDir>/__tests__/Jamie/testenv/'
   ],
   collectCoverage: true,
   collectCoverageFrom: [

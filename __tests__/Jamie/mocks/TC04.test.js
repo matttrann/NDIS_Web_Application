@@ -11,7 +11,7 @@ test steps: 1. Audio must emit from the video
 
 import '@testing-library/jest-dom';
 
-jest.mock('@/lib/google-tts', () => ({
+jest.mock('@/__tests__/Jamie/testenv/google-tts', () => ({
   synthesizeSpeech: jest.fn(),
 }));
 
@@ -21,13 +21,13 @@ describe('Avatar Narration System (Text-to-Speech Integration)', () => {
   const mockAudioUrl = "https://fake-tts/audio.mp3";
 
   beforeEach(() => {
-    const { synthesizeSpeech } = require('@/lib/google-tts');
+    const { synthesizeSpeech } = require('@/__tests__/Jamie/testenv/google-tts');
     synthesizeSpeech.mockResolvedValue({
       audioContent: mockAudioUrl,
       voice: mockVoice
     });
 
-    // 🧠 FULLY mock Audio constructor for all tests
+    // Fully mock Audio constructor for all tests
     global.Audio = jest.fn().mockImplementation(() => ({
       play: jest.fn().mockResolvedValue(), // important to return a Promise
       pause: jest.fn(),
@@ -43,7 +43,7 @@ describe('Avatar Narration System (Text-to-Speech Integration)', () => {
   });
 
   test('calls Google TTS with the correct story', async () => {
-    const { synthesizeSpeech } = require('@/lib/google-tts');
+    const { synthesizeSpeech } = require('@/__tests__/Jamie/testenv/google-tts');
     await synthesizeSpeech(mockGeneratedStory, mockVoice);
     expect(synthesizeSpeech).toHaveBeenCalledWith(mockGeneratedStory, mockVoice);
   });
@@ -55,7 +55,7 @@ describe('Avatar Narration System (Text-to-Speech Integration)', () => {
   });
 
   test('audio matches the script content and avatar voice', async () => {
-    const { synthesizeSpeech } = require('@/lib/google-tts');
+    const { synthesizeSpeech } = require('@/__tests__/Jamie/testenv/google-tts');
     const response = await synthesizeSpeech(mockGeneratedStory, mockVoice);
     expect(response.audioContent).toBe(mockAudioUrl);
     expect(response.voice).toBe(mockVoice);
@@ -77,7 +77,7 @@ const avatarVoiceMap = {
   };
   
   describe('Avatar voice mapping to Google TTS voices', () => {
-    const { synthesizeSpeech } = require('@/lib/google-tts');
+    const { synthesizeSpeech } = require('@/__tests__/Jamie/testenv/google-tts');
     const mockStory = "Today I overcame a challenge and felt really proud.";
   
     beforeEach(() => {
