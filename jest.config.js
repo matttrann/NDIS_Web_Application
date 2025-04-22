@@ -12,6 +12,7 @@ const customJestConfig = {
   moduleNameMapper: {
     // Handle module aliases (this will be automatically configured for you soon)
     '^@/(.*)$': '<rootDir>/$1',
+    '^next-auth/react$': '<rootDir>/__tests__/rezah/mocks/next-auth-react.js',
     // Mock problematic modules to avoid ESM issues
     '@/env.mjs': '<rootDir>/__tests__/matt/mocks/env.mock.js',
     '@/lib/stripe': '<rootDir>/__tests__/matt/mocks/stripe.mock.js',
