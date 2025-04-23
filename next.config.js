@@ -31,6 +31,11 @@ const nextConfig = {
     AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
   },
+  // Override the default compiler in dev/prod but allow babel for tests
+  compiler: {
+    // This enables SWC in dev/prod
+    styledComponents: true,
+  },
 };
 
 module.exports = withContentlayer(nextConfig);

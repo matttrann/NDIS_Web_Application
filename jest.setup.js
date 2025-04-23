@@ -1,7 +1,10 @@
 // Optional: configure or set up a testing framework before each test.
 // If you delete this file, remove `setupFilesAfterEnv` from `jest.config.js`
 
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom';
+
+// Make jest.fn() global
+global.jest = jest;
 
 /* May need for new version of TC02 if TC02_v2 is insufficient
 const { Request, Response } = require('node-fetch');

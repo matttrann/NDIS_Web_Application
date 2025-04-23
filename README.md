@@ -1,6 +1,8 @@
 # Skills4Life Platform
 
-A Next.js-based platform with authentication, payments, and content management for our Capstone.
+![Alt text](https://raw.githubusercontent.com/matttrann/NDIS_Web_Application/main/assets/asset.png)
+
+A Next.js-based platform with authentication, payments, and content management.
 
 ## Prerequisites
 
@@ -16,7 +18,7 @@ A Next.js-based platform with authentication, payments, and content management f
 
 1. **Clone repository**
 ```bash
-git clone https://github.com/unflirting/T234_Capstone_Project.git
+git clone https://github.com/matttrann/NDIS_Web_Application.git
 cd skills4life
 ```
 

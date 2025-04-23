@@ -1,0 +1,11 @@
+{
+    "presets": ["next/babel"],
+    "env": {
+      "test": {
+        "plugins": [
+          ["babel-plugin-transform-import-meta"]
+        ]
+      }
+    },
+    "ignore": ["**/assets/fonts/**"]
+  }
