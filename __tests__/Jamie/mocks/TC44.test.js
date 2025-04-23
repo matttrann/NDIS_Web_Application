@@ -36,6 +36,7 @@ const mockAdmins = [
   },
 ];
 
+//Contains tests
 describe('AdminSelector (Patient Therapist Request Flow)', () => {
     beforeEach(() => {
         jest.clearAllMocks();
@@ -99,6 +100,7 @@ describe('AdminSelector (Patient Therapist Request Flow)', () => {
     });
   });
 
+  //ensure that only admins can access the list
   it('prevents submitting a therapist that is not listed', async () => {
     render(<AdminSelector />);
 
