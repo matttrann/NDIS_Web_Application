@@ -6,6 +6,20 @@ import '@testing-library/jest-dom';
 // Make jest.fn() global
 global.jest = jest;
 
+/* May need for new version of TC02 if TC02_v2 is insufficient
+const { Request, Response } = require('node-fetch');
+global.Request = Request;
+global.Response = Response;
+
+// Polyfill TextEncoder/TextDecoder
+global.TextEncoder = require('util').TextEncoder;
+global.TextDecoder = require('util').TextDecoder;
+
+global.ReadableStream = require('web-streams-polyfill').ReadableStream;
+const { MessageChannel, MessagePort } = require('worker_threads');
+global.MessageChannel = MessageChannel;
+global.MessagePort = MessagePort; */
+
 // Mock next/router
 jest.mock('next/router', () => ({
   useRouter() {

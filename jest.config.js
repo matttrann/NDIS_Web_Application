@@ -1,17 +1,16 @@
 const nextJest = require('next/jest')
 
 const createJestConfig = nextJest({
-  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
   dir: './',
 })
 
-// Add any custom config to be passed to Jest
 const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  testEnvironment: 'jest-environment-jsdom',
+  testEnvironment: 'jsdom',
   moduleNameMapper: {
-    // Handle module aliases (this will be automatically configured for you soon)
     '^@/(.*)$': '<rootDir>/$1',
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '^@t3-oss/env-nextjs$': '<rootDir>/__tests__/Jamie/testenv/env-nextjs.js',
     '^next-auth/react$': '<rootDir>/__tests__/rezah/mocks/next-auth-react.js',
     // Mock problematic modules to avoid ESM issues
     '@/env.mjs': '<rootDir>/__tests__/matt/mocks/env.mock.js',
@@ -30,9 +29,14 @@ const customJestConfig = {
     'assets/fonts': '<rootDir>/__tests__/matt/mocks/fonts.mock.js',
     'next/font/(.*)': '<rootDir>/__tests__/matt/mocks/fonts.mock.js'
   },
+  transformIgnorePatterns: [
+    '/node_modules/(?!(@t3-oss)/)' 
+  ],
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/.next/',
+    '<rootDir>/cypress/', 
+    '<rootDir>/__tests__/Jamie/testenv/'
     '<rootDir>/cypress/',
     '<rootDir>/__tests__/*/mocks/'
   ],
@@ -61,5 +65,4 @@ const customJestConfig = {
   ],
 }
 
-// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-module.exports = createJestConfig(customJestConfig) 
+module.exports = createJestConfig(customJestConfig)
