@@ -1,19 +1,18 @@
 /**
- * User story: As a therapist I want to approve a request from a patient to be there admin so that I can control their experience
- * 
- * Requirements: The system must ensure the therapist is logged in before accessing request approvals, display a list of pending patient admin requests, 
- * allow the therapist to view patient details and approve or reject requests, 
- * update the patient record with the therapist's ID upon approval, notify the patient of the decision, and prevent duplicate approvals or reassignment conflicts.
- * 
- * Test steps: "1. Log in as an admin
+User story: As a therapist I want to approve a request from a patient to be there admin so that I can control their experience
+
+Requirements: The system must ensure the therapist is logged in before accessing request approvals, display a list of pending patient admin requests, 
+allow the therapist to view patient details and approve or reject requests, 
+update the patient record with the therapist's ID upon approval, notify the patient of the decision, and prevent duplicate approvals or reassignment conflicts.
+
+Test steps: "1. Log in as an admin
 2. Navigate to the pending patient requests page
 3. Verify that a list of pending patient requests is displayed (test for when none are expected and when many are expected)
 4. Click the approve request button for the selected patient
 5. Verify that the system assigns the therapist as the admin for that patient in the database
 6. Verify that the patient's assigned therapist field is updated accordingly
 7. Attempt to access the pending requests page without therapist login and verify access is denied"
- * 
- */
+ * */
 
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ClientRequests } from "../testenv/client-requests - Copy"; 
@@ -35,6 +34,7 @@ const mockRequests = [
   },
 ];
 
+//contains the tests
 describe('ClientRequests (Therapist Approves Admin Request)', () => {
     beforeEach(() => {
         jest.clearAllMocks();

@@ -50,6 +50,7 @@ const mockClients = [
   }
 ];
 
+//contains the tests
 describe('ApprovedClients (Therapist removes managed client)', () => {
   const realConsoleError = global.console.error;
 
@@ -59,6 +60,8 @@ describe('ApprovedClients (Therapist removes managed client)', () => {
       configurable: true,
       value: { ...window.location, reload: jest.fn() },
     });
+
+    //to suppress the Act error messages
     jest.spyOn(console, 'error').mockImplementation((msg) => {
       if (typeof msg === 'string' && msg.includes('not wrapped in act')) return;
       realConsoleError(msg);
