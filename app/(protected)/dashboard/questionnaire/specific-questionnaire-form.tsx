@@ -12,32 +12,24 @@ import { cn } from "@/lib/utils";
 import { Icons } from "@/components/shared/icons";
 import { ConfettiCelebration } from "@/components/shared/confetti-celebration";
 
-interface QuestionnaireAnswers {
-  whoisInvolved: string;
-  whoCanHelp: string;
-  situation: string;
-  when: string;
+interface SpecificQuestionnaireAnswers {
+  who: string;
+  what: string;
   where: string;
+  when: string;
   why: string;
-  whatStrategyHelps: string;
-  storyFeel: string;
-  whatStoryShow: string;
 }
 
-export function QuestionnaireForm({ userId }: { userId: string }) {
+export function SpecificQuestionnaireForm({ userId }: { userId: string }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<QuestionnaireAnswers>({
-    whoisInvolved: "",
-    whoCanHelp: "",
-    situation: "",
-    when: "",
+    who: "",
+    what: "",
     where: "",
-    why: "",
-    whatStrategyHelps: "",
-    storyFeel: "",
-    whatStoryShow: ""
+    when: "",
+    why: ""
   });
   
   // Track validation errors
@@ -49,24 +41,16 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   // Function to check if the current question has been answered
   const isCurrentQuestionAnswered = (): boolean => {
     switch (currentStep) {
-      case 0: //  who is Involved
-        return !!answers.whoisInvolved.trim();e
-      case 1: // Who can help
-        return !!answers.whoCanHelp.trim();
-      case 2: // what is the situation
-        return !!answers.situation.trim();
-      case 3: // when does it happen
-        return !!answers.when.trim();
-      case 4: // where does it happen
-        return !!answers.where.trim();
-      case 5: // Why is the situation difficult
-        return !!answers.why.trim();
-      case 6: // What strategy helps
-        return !!answers.whatStrategyHelps.trim();
-      case 7: // Strengths
-        return !!answers.storyFeel;
-      case 8: // Communication Preferences
-        return !!answers.whatStoryShow.trim();
+      case 0: // who
+        return !!answers.who.trim();
+      case 1: // what
+      return !!answers.what.trim();
+      case 2: // where
+      return !!answers.where.trim();
+      case 3: // when
+      return !!answers.when.trim();
+      case 4: // why
+      return !!answers.why.trim();
       default:
         return false;
     }
@@ -76,14 +60,11 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   const validateAllQuestions = (): boolean => {
     // Check each field
     const requiredFields = [
-      { field: answers.whoisInvolved.trim(), name: "who is involved" },
-      { field: answers.whoCanHelp.trim(), name: "Who can help" },
-      { field: answers.situation.trim(), name: "What is the situation" },
-      { field: answers.where.trim(), name: "What makes you upset" },
-      { field: answers.why.trim(), name: "Why it's hard" },
-      { field: answers.whatStrategyHelps.trim(), name: "what Strategy Helps" },
-      { field: answers.storyFeel, name: "How you're feeling" },
-      { field: answers.whatStoryShow.trim(), name: "What the story should show" }
+      { field: answers.who.trim(), name: "Who" },
+      { field: answers.what.trim(), name: "what" },
+      { field: answers.where.trim(), name: "where" },
+      { field: answers.when.trim(), name: "when" },
+      { field: answers.why.trim(), name: "why" }
     ];
 
     // Find first missing field
@@ -99,120 +80,60 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
   // Define all questions as components
   const questionComponents = [
-    // Question 1: 1.	WHO is involved within this story?
+    // Question 1: Who
     <>
-      <h3 className="text-lg font-medium mb-4">WHO is involved within this story?</h3>
+      <h3 className="text-lg font-medium mb-4">Who does the situation involve?</h3>
       <Textarea
-        value={answers.whoisInvolved}
-        onChange={(e) => setAnswers({ ...answers, whoisInvolved: e.target.value })}
-        placeholder="e.g., My mother, my friend Sarah, etc."
+        value={answers.who}
+        onChange={(e) => setAnswers({ ...answers, who: e.target.value })}
+        placeholder="e.g. My teacher Ms. Green, My Father..."
         className="min-h-[100px]"
       />
     </>,
 
-    // Question 2: WHO can you trust to help you through a tough situation?
+    // Question 2: What
     <>
-      <h3 className="text-lg font-medium mb-4">WHO can you trust to help you through a tough situation?</h3>
-      <Textarea
-        value={answers.whoCanHelp}
-        onChange={(e) => setAnswers({ ...answers, whoCanHelp: e.target.value })}
-        placeholder="e.g., My mother, my friend Sarah, etc."
-        className="min-h-[100px]"
-      />
-    </>,
-
-    // Question 3: WHAT is the situation or challenge in your story? 
-    <>
-    <h3 className="text-lg font-medium mb-4">WHAT is the situation or challenge in your story?</h3>
+    <h3 className="text-lg font-medium mb-4">What happens in the situation?</h3>
     <Textarea
-      value={answers.situation}
-      onChange={(e) => setAnswers({ ...answers, situation: e.target.value })}
-      placeholder="e.g. I have too much energy and fidget"
+      value={answers.what}
+      onChange={(e) => setAnswers({ ...answers, what: e.target.value })}
+      placeholder="e.g. I stop listening to the teachers"
       className="min-h-[100px]"
     />
   </>,
 
-  // Question 4: WHEN does this situation occur?
-  <>
-  <h3 className="text-lg font-medium mb-4">WHEN does this situation occur?</h3>
-  <Textarea
-    value={answers.when}
-    onChange={(e) => setAnswers({ ...answers, when: e.target.value })}
-    placeholder="e.g., During story time"
-    className="min-h-[100px]"
-  />
-</>,
-
-    // Question 5: WHERE does it happen? 
+    // Question 3: Where
     <>
-    <h3 className="text-lg font-medium mb-4">WHERE does it happen? </h3>
+    <h3 className="text-lg font-medium mb-4">Where does the situation happen?</h3>
     <Textarea
       value={answers.where}
       onChange={(e) => setAnswers({ ...answers, where: e.target.value })}
-      placeholder="e.g., in maths class"
+      placeholder="e.g. In the classroom"
       className="min-h-[100px]"
     />
   </>,
 
-    // Question 6: WHY is this situation hard for you? 
+    // Question 4: When
     <>
-      <h3 className="text-lg font-medium mb-4">WHY is this situation hard for you?</h3>
+      <h3 className="text-lg font-medium mb-4">When does the situation happen?</h3>
       <Textarea
-        value={answers.why}
-        onChange={(e) => setAnswers({ ...answers, why: e.target.value })}
-        placeholder="e.g. I have too much energy"
+        value={answers.when}
+        onChange={(e) => setAnswers({ ...answers, when: e.target.value })}
+        placeholder="e.g. In maths class when Ms. Green is speaking"
         className="min-h-[100px]"
       />
     </>,
 
-    // Question 7: WHAT strategy could help you feel better in this situation? 
+    // Question 5: Why
     <>
-      <h3 className="text-lg font-medium mb-4">WHAT strategy could help you feel better in this situation?</h3>
-      <Input
-        value={answers.whatStrategyHelps}
-        onChange={(e) => setAnswers({ ...answers, whatStrategyHelps: e.target.value })}
-        placeholder="e.g., Making friends, managing emotions, completing tasks independently"
-      />
-    </>,
-
-    // Question 8: HOW do you want the story to feel? 
-    <>
-      <h3 className="text-lg font-medium mb-4">HOW do you want the story to feel?</h3>
-      <Select 
-        onValueChange={(value) => setAnswers({ ...answers, storyFeel: value })}
-        value={answers.storyFeel}
-      >
-        <SelectTrigger>
-          <SelectValue placeholder="Select your mood" />
-        </SelectTrigger>
-        <SelectContent>
-<<<<<<< Updated upstream
-          <SelectItem value="😊 Happy">😊 Happy</SelectItem>
-          <SelectItem value="😐 Neutral">😐 Neutral</SelectItem>
-          <SelectItem value="😞 Sad">😞 Sad</SelectItem>
-          <SelectItem value="😰 Anxious">😰 Anxious</SelectItem>
-          <SelectItem value="😡 Angry">�� Angry</SelectItem>
-          <SelectItem value="💤 Tired">💤 Tired</SelectItem>
-=======
-          <SelectItem value="Calming"> Calming</SelectItem>
-          <SelectItem value="Reassuring"> Reassuring</SelectItem>
-          <SelectItem value="Encouraging"> Encouraging</SelectItem>
-          <SelectItem value="Funny"> Funny</SelectItem>
-          <SelectItem value="Adventurous"> Adventurous</SelectItem>
->>>>>>> Stashed changes
-        </SelectContent>
-      </Select>
-    </>,
-
-    // Question 9: WHAT do you want the story to teach or show? 
-    <>
-      <h3 className="text-lg font-medium mb-4">WHAT do you want the story to teach or show? </h3>
-      <Input
-        value={answers.whatStoryShow}
-        onChange={(e) => setAnswers({ ...answers, whatStoryShow: e.target.value })}
-        placeholder="e.g., my strategies clearly listed, a character using my strategies"
-      />
-    </>,
+    <h3 className="text-lg font-medium mb-4">Why does the situation happen?</h3>
+    <Textarea
+      value={answers.why}
+      onChange={(e) => setAnswers({ ...answers, why: e.target.value })}
+      placeholder="e.g. I have too much energy"
+      className="min-h-[100px]"
+    />
+  </>,
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
