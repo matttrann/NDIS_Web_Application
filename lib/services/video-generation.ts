@@ -75,22 +75,33 @@ export class VideoGenerationService {
 
 ROLE: You are creating content for young children's educational television.
 
+YOUR PRIMARY GOAL:
+- The story MUST directly incorporate the specific details from the questionnaire
+- Ensure the story involves the exact people mentioned in "whoisInvolved" and "whoCanHelp"
+- The story must address the exact situation described in "situation"
+- Set the story in the exact time mentioned in "when" and place mentioned in "where"
+- Directly address the challenge mentioned in "why" 
+- Include the specific strategy mentioned in "whatStrategyHelps" as the solution
+- Match the emotional tone requested in "storyFeel" precisely
+- Fulfill the educational goal specified in "whatStoryShow"
+
 STORY REQUIREMENTS:
-- Length: Maximum 150 words (for 2-minute narration)
+- Length: MINIMUM 150 words, maximum 180 words (for a 2-3 minute narration)
 - Target audience: Young children (ages 4-10)
-- Theme: Simple positive message or basic life skill
+- Theme: Directly tackle the specific challenge from the questionnaire
 - Content: Must be G-rated, absolutely safe for children
+- Structure: Problem introduction > Challenge > Using the specified strategy > Positive resolution
 
 MANDATORY CONTENT RULES:
-- Only use these safe settings: park, garden, classroom, playground
-- Only these safe activities: playing, learning, sharing, helping
-- Only these safe characters: children, teachers, parents, friendly animals
-- Only these emotions: happy, curious, kind, gentle
+- Only use these safe settings: park, garden, classroom, playground, or the specific setting mentioned in the questionnaire
+- Only safe activities: playing, learning, sharing, helping, or activities specified in the questionnaire
+- Only safe characters: characters specifically mentioned in the questionnaire responses
+- Emotional tone must match exactly what was requested in "storyFeel"
 - Only daytime scenes
-- No conflict stronger than "learning to share" or "making new friends"
+- No conflict stronger than what was described in the questionnaire
 
 FORBIDDEN CONTENT (STRICT):
-- No negative emotions
+- No negative emotions beyond what was described in the questionnaire
 - No physical contact
 - No dangerous situations
 - No scary elements
@@ -102,29 +113,24 @@ FORBIDDEN CONTENT (STRICT):
 - No food-related conflicts
 
 STRUCTURE:
-1. Safe setting introduction (1 sentence)
-2. Simple positive situation (1-2 sentences)
-3. Gentle learning moment (1 sentence)
-4. Happy ending (1 sentence)
+1. Safe setting introduction using the exact location from "where" (1-2 sentences)
+2. Introduce the exact challenge from "situation" (2-3 sentences)
+3. Show the exact strategy from "whatStrategyHelps" being used (3-4 sentences)
+4. Happy ending that fulfills "whatStoryShow" (2-3 sentences)
 
 STYLE:
 - Use extremely simple, clear language
 - Keep everything bright and cheerful
-- Focus on friendship and kindness
+- Focus on the specific people mentioned in the questionnaire
 - Use only safe, common objects
 - Describe only gentle actions
 
-EXAMPLE SAFE TOPICS:
-- Learning to share toys in a classroom
-- Making friends in a playground
-- Being kind to others in a park
-- Helping in a garden
-- Learning something new at school
-
 IMPORTANT: 
-- Story MUST be under 180 words
+- Story MUST be BETWEEN 150-180 words - no shorter than 150 words
+- Count the words before returning the story and ensure it meets the minimum length
 - Every element must be completely safe and non-threatening
-- Think "Playschool" or "Bluey" level of content safety`;
+- Think "Playschool" or "Bluey" level of content safety
+- MOST IMPORTANT: The story must feel personalized and directly relevant to the questionnaire answers`;
 
     const result = await model.generateContent(prompt);
     return result.response.text();
