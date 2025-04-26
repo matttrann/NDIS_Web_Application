@@ -50,7 +50,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   const isCurrentQuestionAnswered = (): boolean => {
     switch (currentStep) {
       case 0: //  who is Involved
-        return !!answers.whoisInvolved.trim();e
+        return !!answers.whoisInvolved.trim();
       case 1: // Who can help
         return !!answers.whoCanHelp.trim();
       case 2: // what is the situation
@@ -186,20 +186,11 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
           <SelectValue placeholder="Select your mood" />
         </SelectTrigger>
         <SelectContent>
-<<<<<<< Updated upstream
-          <SelectItem value="😊 Happy">😊 Happy</SelectItem>
-          <SelectItem value="😐 Neutral">😐 Neutral</SelectItem>
-          <SelectItem value="😞 Sad">😞 Sad</SelectItem>
-          <SelectItem value="😰 Anxious">😰 Anxious</SelectItem>
-          <SelectItem value="😡 Angry">�� Angry</SelectItem>
-          <SelectItem value="💤 Tired">💤 Tired</SelectItem>
-=======
           <SelectItem value="Calming"> Calming</SelectItem>
           <SelectItem value="Reassuring"> Reassuring</SelectItem>
           <SelectItem value="Encouraging"> Encouraging</SelectItem>
           <SelectItem value="Funny"> Funny</SelectItem>
           <SelectItem value="Adventurous"> Adventurous</SelectItem>
->>>>>>> Stashed changes
         </SelectContent>
       </Select>
     </>,
@@ -251,7 +242,8 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
         });
         router.refresh();
       } else {
-        throw new Error(data?.error || "Failed to submit questionnaire");
+        const errorData = await response.json();
+        throw new Error(errorData?.error || "Failed to submit questionnaire");
       }
     } catch (error) {
       console.error("Submission error:", error);
