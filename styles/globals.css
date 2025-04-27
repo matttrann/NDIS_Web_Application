@@ -109,3 +109,20 @@
 .prose div {
   transition: opacity 0.3s ease;
 }
+
+.oval {
+  border-radius: 50%;
+  width: 20%;
+  padding: 1px;
+  background: #fff;
+  border: 1px solid #666;
+  color: #666;
+  text-align: center;
+}
+
+img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+}
