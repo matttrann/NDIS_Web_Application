@@ -104,7 +104,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     // Question 1: 1.	WHO is involved within this story?
     <>
       <h3 className="text-lg font-medium mb-4"><span className='rcorners2'>Who are the people (or maybe even animals!) in the story?
-      </span><span className="img"></span></h3>
+      </span><div style={{ backgroundImage: "url(styles/avatar-pic/Sport_Kangaroo.png)" }}></div></h3>
       <Textarea
         value={answers.whoisInvolved}
         onChange={(e) => setAnswers({ ...answers, whoisInvolved: e.target.value })}
