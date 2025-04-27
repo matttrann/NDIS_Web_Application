@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 import { Icons } from "@/components/shared/icons";
 import { ConfettiCelebration } from "@/components/shared/confetti-celebration";
 import "@/styles/globals.css";  
-import "@/styles/avatar-pic/Sport_Kangaroo.png";
+import background from "@/styles/avatar-pic/Sport_Kangaroo_bg.jpg";
 
 
 interface QuestionnaireAnswers {
@@ -105,7 +105,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     // Question 1: 1.	WHO is involved within this story?
     <>
       <h3 className="text-lg font-medium mb-4"><span className='rcorners2'>Who are the people (or maybe even animals!) in the story?
-      </span><img src="Sport_Kangaroo.png" style={{ width: '150px' }}/></h3>
+      </span></h3>
       <Textarea
         value={answers.whoisInvolved}
         onChange={(e) => setAnswers({ ...answers, whoisInvolved: e.target.value })}
@@ -288,6 +288,9 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   }, [answers]);
 
   return (
+    <div style={{backgroundImage: `url(${background})`,
+                backgroundRepeat: "no-repeat"
+    }}>
     <div className="rounded-lg border bg-card p-8">
       {/* Progress bar */}
       <div className="mb-6">
@@ -361,6 +364,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
       {/* Add the confetti celebration */}
       {showCelebration && <ConfettiCelebration duration={5000} />}
+    </div>
     </div>
   );
 } 
