@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/shared/icons";
 import { ConfettiCelebration } from "@/components/shared/confetti-celebration";
-import 'styles/globals.css';
+import "@/styles/globals.css";  
 
 interface QuestionnaireAnswers {
   whoisInvolved: string;
@@ -102,7 +102,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   const questionComponents = [
     // Question 1: 1.	WHO is involved within this story?
     <>
-      <h3 className="text-lg font-medium mb-4"><span className='oval'>who are the people (or maybe even animals!) in the story?
+      <h3 className="text-lg font-medium mb-4"><span className='oval'>Who are the people (or maybe even animals!) in the story?
       </span></h3>
       <Textarea
         value={answers.whoisInvolved}
