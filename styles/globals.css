@@ -120,15 +120,7 @@
   text-align: center;
 }
 
-.questionnaire_container {
-  max-width: 1280px; /* similar to Tailwind's container */
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  display: grid;
-  gap: 2rem; /* 8 -> 2rem */
-  background-image: url('./styles/avatar-pic/Sport_Kangaroo_bg.jpg');
-  background-size: cover;
-  background-position: center;
+.avatar-img {
+  position: relative;
+  background-image: url('./avatar-pic/Sport_Kangaroo.png');
 }
