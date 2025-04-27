@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/shared/icons";
+import "@/styles/globals.css";  
 
 interface ClientQuestionnaireProps {
   user: User;
@@ -57,7 +58,7 @@ export function ClientQuestionnaire({ user, hasApprovedAdmin, hasRequestedAdmin 
         </DialogContent>
       </Dialog>
 
-      <div className="container grid gap-8">
+      <div className="questionnaire-container">
         <WelcomeToast username={user.name} />
         <DashboardHeader
           heading="Questionnaire"

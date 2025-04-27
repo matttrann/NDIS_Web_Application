@@ -12,7 +12,6 @@ import { cn } from "@/lib/utils";
 import { Icons } from "@/components/shared/icons";
 import { ConfettiCelebration } from "@/components/shared/confetti-celebration";
 import "@/styles/globals.css";  
-import background from "@/styles/avatar-pic/Sport_Kangaroo_bg.jpg";
 
 
 interface QuestionnaireAnswers {
@@ -288,9 +287,6 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   }, [answers]);
 
   return (
-    <div style={{backgroundImage: `url(${background})`,
-                backgroundRepeat: "no-repeat"
-    }}>
     <div className="rounded-lg border bg-card p-8">
       {/* Progress bar */}
       <div className="mb-6">
@@ -364,7 +360,6 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
       {/* Add the confetti celebration */}
       {showCelebration && <ConfettiCelebration duration={5000} />}
-    </div>
     </div>
   );
 } 
