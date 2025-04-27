@@ -112,21 +112,11 @@
 
 .rcorners2 {
   position:relative;
-  border-radius: 15px 50px;
+  border-radius: 50px;
   background: #73AD21;
-  padding: 20px; 
+  padding: 10px; 
   border: 1px solid #666;
   width: 50%;
-  text-align: center;
-}
-
-.oval {
-  border-radius: 50%;
-  width: 20%;
-  padding: 10px;
-  background: #fff;
-  border: 1px solid #666;
-  color: #666;
   text-align: center;
 }
 
