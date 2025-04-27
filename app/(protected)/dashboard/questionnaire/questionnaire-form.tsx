@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { Icons } from "@/components/shared/icons";
 import { ConfettiCelebration } from "@/components/shared/confetti-celebration";
 import "@/styles/globals.css";  
+import "@/styles/avatar-pic/Sport_Kangaroo.png";
 
 
 interface QuestionnaireAnswers {
