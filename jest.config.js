@@ -36,7 +36,7 @@ const customJestConfig = {
     '<rootDir>/node_modules/',
     '<rootDir>/.next/',
     '<rootDir>/cypress/', 
-    '<rootDir>/__tests__/Jamie/testenv/'
+    '<rootDir>/__tests__/Jamie/testenv/',
     '<rootDir>/cypress/',
     '<rootDir>/__tests__/*/mocks/'
   ],
