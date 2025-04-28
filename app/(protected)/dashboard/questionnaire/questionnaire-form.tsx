@@ -12,8 +12,9 @@ import { cn } from "@/lib/utils";
 import { Icons } from "@/components/shared/icons";
 import { ConfettiCelebration } from "@/components/shared/confetti-celebration";
 import "@/styles/globals.css";  
-import Image from 'next/image';
-import backGround from 'public/back-ground/Sport_Kangaroo_bg.jpg';
+import Image from 'next/image'
+import { text } from "stream/consumers";
+
 
 
 interface QuestionnaireAnswers {
@@ -108,7 +109,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   const imageStyle = {
     borderRadius: '50%',
     border: '1px solid #000',
-    backgroundImage: URL('public/back-ground/Sport_Kangaroo_bg.jpg'),
+    backgroundColor: '#6B4984',
     float: 'right',
     marginBottom: '15px',
     marginRight: '10px',
