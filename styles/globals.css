@@ -113,14 +113,82 @@
 .rcorners2 {
   position:relative;
   border-radius: 50px;
-  background: #73AD21;
+  background: #73b9ee;
   padding: 10px; 
   border: 1px solid #666;
   width: 50%;
   text-align: center;
 }
 
+.align-right {
+  text-align: right;
+}
+
+.align-middle {
+  text-align: center;
+}
+
+.bg-color {
+  background-color: #9fdcff;
+}
+
+.text-color {
+  color: #000000;
+}
+
 .avatar-img {
-  position: relative;
-  background-image: url('./avatar-pic/Sport_Kangaroo.png');
+  border: 1px solid #000000;
+  border-radius: 10px;
+  padding: 5px;
+  width: 150px;
+  background-image: url(/public/avatar-pic/Sport_Kangaroo.png);
+}
+
+/* Button.css */
+.effect1 {
+  transition: transform 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.effect1:hover {
+  transform: scale(1.1);
+  background-color: #4caf50;
+  color: white;
+}
+
+/* Button.css */
+.effect2 {
+  transition: box-shadow 0.3s, border-radius 0.3s;
+}
+
+.effect2:hover {
+  box-shadow: 0 4px 8px rgba(94, 203, 233, 0.2);
+  border-radius: 20px;
+}
+
+/* Button.css */
+.effect3 {
+  transition: transform 0.3s, background-position 0.5s ease;
+}
+
+.effect3:hover {
+  transform: translateX(10px);
+  background-position: right bottom;
+}
+
+/* Button.css */
+.effect4 {
+  transition: transform 0.3s;
+}
+
+.effect4:hover {
+  transform: rotate(45deg);
+}
+
+/* Button.css */
+.effect5 {
+  transition: transform 0.3s;
+}
+
+.effect5:hover {
+  transform: scaleX(-1);
 }

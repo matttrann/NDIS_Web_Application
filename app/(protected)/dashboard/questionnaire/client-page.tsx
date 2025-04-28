@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/shared/icons";
+import Image from 'next/image'
 
 interface ClientQuestionnaireProps {
   user: User;
@@ -39,6 +40,10 @@ export function ClientQuestionnaire({ user, hasApprovedAdmin, hasRequestedAdmin 
     ? "Waiting for Admin Approval"
     : "Admin Access Required";
 
+  const imageStyle = {
+      border: '1px solid #000',     
+  }
+
   return (
     <>
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
@@ -58,10 +63,13 @@ export function ClientQuestionnaire({ user, hasApprovedAdmin, hasRequestedAdmin 
       </Dialog>
 
       <div className="container grid gap-8">
+        <Image style={imageStyle} src="/back-ground/pexels-enginakyurt-1435752.jpg" alt="avatar-img"
+          width={150} 
+          height={150}/>
         <WelcomeToast username={user.name} />
         <DashboardHeader
           heading="Questionnaire"
-          text="Complete your questionnaire to help us understand your needs."
+          text="Tell us your story, so we can understand your needs."
         />
         {hasApprovedAdmin ? (
           <div className="grid gap-8">
