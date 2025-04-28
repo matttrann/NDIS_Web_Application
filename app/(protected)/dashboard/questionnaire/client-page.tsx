@@ -17,6 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/shared/icons";
 import Image from 'next/image'
+import { getImageProps } from 'next/image'
 
 interface ClientQuestionnaireProps {
   user: User;
@@ -64,8 +65,8 @@ export function ClientQuestionnaire({ user, hasApprovedAdmin, hasRequestedAdmin 
 
       <div className="container grid gap-8">
         <Image style={imageStyle} src="/back-ground/pexels-enginakyurt-1435752.jpg" alt="avatar-img"
-          width={150} 
-          height={150}/>
+          width={100} 
+          height={100}/>
         <WelcomeToast username={user.name} />
         <DashboardHeader
           heading="Questionnaire"
@@ -87,7 +88,7 @@ export function ClientQuestionnaire({ user, hasApprovedAdmin, hasRequestedAdmin 
                 {hasRequestedAdmin ? "Check Request Status" : "Request Admin Access"}
               </Button>
             </div>
-          </div>
+          </div>          
         )}
       </div>
     </>

@@ -110,7 +110,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     borderRadius: '50%',
     border: '1px solid #000',
     backgroundColor: '#6B4984',
-    float: 'right',
+    cssFloat: 'right',
     marginBottom: '15px',
     marginRight: '10px',
   }
@@ -119,7 +119,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   const questionComponents = [
     // Welcome screen
     <>
-      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>Hi there! Tell me your story, so I can help you. </span>
+      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>Hi there! Tell me your situation, so I can help you. </span>
       <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
       width={150} 
       height={150}/></h3>
@@ -127,7 +127,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
     // Question 1: 1.	WHO is involved within this story?
     <>
-      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHO are the people (or maybe even animals!) in the story?
+      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHO are the people (or maybe even animals!) in this situation?
       </span><Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
       width={150} 
       height={150}/></h3>
@@ -142,7 +142,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
     // Question 2: WHO can you trust to help you through a tough situation?
     <>
-      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHO can you trust to help you through a tough situation?</span>
+      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHO can you trust to help you through this tough situation?</span>
       <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
       width={150} 
       height={150}/></h3>
@@ -157,7 +157,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
     // Question 3: WHAT is the situation or challenge in your story? 
     <>
-    <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHAT were the people or animals doing? What was happening around them?</span>
+    <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHAT were the people (or animals doing)? What was happening around them?</span>
     <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
       width={150} 
       height={150}/></h3>
@@ -172,7 +172,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
   // Question 4: WHEN does this situation occur?
   <>
-  <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>What time it is or what day it is WHEN the story takes place. 
+  <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>What time it is or what day it is WHEN this situation takes place. 
     Is it a long time ago, in the morning, or at night?</span>
     <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
       width={150} 
@@ -188,7 +188,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
     // Question 5: WHERE does it happen? 
     <>
-    <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHERE is the story taking place? Is 
+    <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHERE is this situation taking place? Is 
       it at home, at school, in a park, or somewhere else?</span>
       <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
       width={150} 
@@ -219,7 +219,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
     // Question 7: WHAT strategy could help you feel better in this situation? 
     <>
-      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHAT strategy could help you feel better in this situation?</span>
+      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHAT strategies could help you feel better in this situation?</span>
       <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
       width={150} 
       height={150}/></h3>
@@ -270,7 +270,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
     // Finishing screen
     <>
-      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>Well Done! Thank you for answering my question </span>
+      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>Well Done! Thank you for answering my questions </span>
       <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
       width={150} 
       height={150}/></h3>
