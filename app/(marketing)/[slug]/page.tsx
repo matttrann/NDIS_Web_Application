@@ -94,6 +94,11 @@ export default async function PagePage({
             <p>
               We reserve the right to modify these terms at any time. Continued use of the service constitutes acceptance of modified terms.
             </p>
+            <h3>Use of Generative AI</h3>
+            <p>
+            Generative AI is used in the creation of stories and videos. This is an inherently unpredictable tool and adults are required to 
+            verify the suitability of content before showing it to children.
+            </p>
           </>
         ) : null}
       </div>
