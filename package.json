@@ -25,6 +25,7 @@
     "@aws-sdk/s3-request-presigner": "^3.750.0",
     "@google-cloud/text-to-speech": "^5.8.0",
     "@google/generative-ai": "^0.21.0",
+    "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^3.9.0",
     "@prisma/client": "5.17.0",
     "@radix-ui/react-accessible-icon": "^1.1.0",

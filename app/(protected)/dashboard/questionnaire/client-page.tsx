@@ -64,9 +64,6 @@ export function ClientQuestionnaire({ user, hasApprovedAdmin, hasRequestedAdmin 
       </Dialog>
 
       <div className="container grid gap-8">
-        <Image style={imageStyle} src="/back-ground/pexels-enginakyurt-1435752.jpg" alt="avatar-img"
-          width={100} 
-          height={100}/>
         <WelcomeToast username={user.name} />
         <DashboardHeader
           heading="Questionnaire"

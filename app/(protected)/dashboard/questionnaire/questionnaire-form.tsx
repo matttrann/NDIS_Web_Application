@@ -14,6 +14,9 @@ import { ConfettiCelebration } from "@/components/shared/confetti-celebration";
 import "@/styles/globals.css";  
 import Image from 'next/image'
 import { text } from "stream/consumers";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { string } from "prop-types";
 
 
 
@@ -106,6 +109,38 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     return true;
   };
 
+  const onEnterAvatar = ({ currentTarget }) => {
+    let q = gsap.utils.selector(currentTarget);
+    gsap.to(currentTarget, { scale: 1.2 });
+  };
+  
+  const onLeaveAvatar = ({ currentTarget }) => {
+    let q = gsap.utils.selector(currentTarget);
+    gsap.to(currentTarget, { scale: 1 });
+  };
+
+  var talk = "Hello! I'm here to help you with your story. Let's get started!"
+  const onEnterButton = ({ currentTarget }) => {
+    let q = gsap.utils.selector(currentTarget);
+    gsap.to(currentTarget, { scale: 0.8 });
+    talk = "Great! Let's move on to the next question."
+  };
+  
+  const onLeaveButton = ({ currentTarget }) => {
+    let q = gsap.utils.selector(currentTarget);
+    gsap.to(currentTarget, { scale: 1 });
+  };
+
+  const onEnterTextBox = ({ currentTarget }) => {
+    let q = gsap.utils.selector(currentTarget);
+    gsap.to(currentTarget, { backgroundColor: "#e77614" });
+  };
+  
+  const onLeaveTextBox = ({ currentTarget }) => {
+    let q = gsap.utils.selector(currentTarget);
+    gsap.to(currentTarget, { backgroundColor: "#4cff4c"});
+  };
+
   const imageStyle = {
     borderRadius: '50%',
     border: '1px solid #000',
@@ -119,7 +154,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   const questionComponents = [
     // Welcome screen
     <>
-      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>Hi there! Tell me your situation, so I can help you. </span>
+      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'> {talk}</span>
       <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
       width={150} 
       height={150}/></h3>
@@ -127,10 +162,10 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
     // Question 1: 1.	WHO is involved within this story?
     <>
-      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHO are the people (or maybe even animals!) in this situation?
+      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2' onMouseEnter={onEnterTextBox} onMouseLeave={onLeaveTextBox}>WHO are the people (or maybe even animals!) in this situation? 
       </span><Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
       width={150} 
-      height={150}/></h3>
+      height={150} onMouseEnter={onEnterAvatar} onMouseLeave={onLeaveAvatar}/></h3>
       <Textarea
         value={answers.whoisInvolved}
         onChange={(e) => setAnswers({ ...answers, whoisInvolved: e.target.value })}
@@ -158,7 +193,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     // Question 3: WHAT is the situation or challenge in your story? 
     <>
     <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHAT were the people (or animals doing)? What was happening around them?</span>
-    <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
+    <Image  style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
       width={150} 
       height={150}/></h3>
     <Textarea
@@ -355,7 +390,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   }, [answers]);
 
   return (
-    <div className="rounded-lg border bg-card p-8 bg-color">
+    <div className=" hover-card rounded-lg border bg-card p-8 bg-color">
       {/* Progress bar */}
       <div className="mb-6">
         <div className="flex justify-between text-sm text-muted-foreground mb-2 text-color">
@@ -390,8 +425,9 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
             variant="outline" 
             onClick={goPrevStep}
             disabled={currentStep === 0}
-            className="w-28"
+            className="big-button"
             style={{ backgroundColor: "white" }}
+            onMouseEnter={onEnterButton} onMouseLeave={onLeaveButton}            
           >
             <Icons.chevronLeft className="mr-2 h-4 w-4" />
             Previous
@@ -401,8 +437,9 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
             <Button 
               type="button" 
               onClick={goNextStep}
-              className="w-28"
+              className="big-button"
               disabled={!isCurrentQuestionAnswered()}
+              onMouseEnter={onEnterButton} onMouseLeave={onLeaveButton}
             >
               Next
               <Icons.chevronRight className="ml-2 h-4 w-4" />
@@ -411,7 +448,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
             <Button 
               type="submit" 
               disabled={loading || !isCurrentQuestionAnswered()}
-              className="w-28"
+              className="big-button"
             >
               {loading ? (
                 <>
