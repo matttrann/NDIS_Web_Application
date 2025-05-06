@@ -13,10 +13,8 @@ import { Icons } from "@/components/shared/icons";
 import { ConfettiCelebration } from "@/components/shared/confetti-celebration";
 import "@/styles/globals.css";  
 import Image from 'next/image'
-import { text } from "stream/consumers";
 import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { string } from "prop-types";
+
 
 
 
@@ -109,26 +107,41 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     return true;
   };
 
+  const [talk, setTalk] = useState("Hello! I'm here to help you with your story. Let's get started!");
+
+  const onEnterProgress = ({ currentTarget }) => {
+    let q = gsap.utils.selector(currentTarget);
+    setTalk("We are almost there! Just a few more questions to go.");
+  };
+  
+  const onLeaveProgress = ({ currentTarget }) => {
+    let q = gsap.utils.selector(currentTarget);
+    setTalk("Hello! I'm here to help you with your story. Let's get started!");
+  };
+
   const onEnterAvatar = ({ currentTarget }) => {
     let q = gsap.utils.selector(currentTarget);
-    gsap.to(currentTarget, { scale: 1.2 });
+    gsap.to(currentTarget, { scale: 0.8 });
+    setTalk("That is tickles!");
   };
   
   const onLeaveAvatar = ({ currentTarget }) => {
     let q = gsap.utils.selector(currentTarget);
     gsap.to(currentTarget, { scale: 1 });
+    setTalk("Hello! I'm here to help you with your story. Let's get started!");
   };
 
-  var talk = "Hello! I'm here to help you with your story. Let's get started!"
+ 
   const onEnterButton = ({ currentTarget }) => {
     let q = gsap.utils.selector(currentTarget);
     gsap.to(currentTarget, { scale: 0.8 });
-    talk = "Great! Let's move on to the next question."
+    setTalk("Great! Let's start.");
   };
   
   const onLeaveButton = ({ currentTarget }) => {
     let q = gsap.utils.selector(currentTarget);
     gsap.to(currentTarget, { scale: 1 });
+    setTalk("Hello! I'm here to help you with your story. Let's get started!");
   };
 
   const onEnterTextBox = ({ currentTarget }) => {
@@ -154,15 +167,15 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   const questionComponents = [
     // Welcome screen
     <>
-      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'> {talk}</span>
+      <h3><span className='rcorners2'> {talk}</span>
       <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
       width={150} 
-      height={150}/></h3>
+      height={150} onMouseEnter={onEnterAvatar} onMouseLeave={onLeaveAvatar}/></h3>
     </>,
 
     // Question 1: 1.	WHO is involved within this story?
     <>
-      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2' onMouseEnter={onEnterTextBox} onMouseLeave={onLeaveTextBox}>WHO are the people (or maybe even animals!) in this situation? 
+      <h3><span className='rcorners2' onMouseEnter={onEnterTextBox} onMouseLeave={onLeaveTextBox}>WHO are the people (or maybe even animals!) in this situation? 
       </span><Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
       width={150} 
       height={150} onMouseEnter={onEnterAvatar} onMouseLeave={onLeaveAvatar}/></h3>
@@ -390,11 +403,11 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   }, [answers]);
 
   return (
-    <div className=" hover-card rounded-lg border bg-card p-8 bg-color">
+    <div className="rounded-lg border bg-card p-8 bg-color">
       {/* Progress bar */}
-      <div className="mb-6">
-        <div className="flex justify-between text-sm text-muted-foreground mb-2 text-color">
-          <span>Step {currentStep + 1} of {totalSteps}</span>
+      <div className="mb-6" onMouseEnter={onEnterProgress} onMouseLeave={onLeaveProgress}>
+        <div className="flex justify-between text-sm text-muted-foreground mb-2 text-color"  onMouseEnter={onEnterProgress} onMouseLeave={onLeaveProgress}>
+          <b>Step {currentStep + 1} of {totalSteps}</b>
           <span>{Math.round(progressPercentage)}% Complete</span>
         </div>
         <div className="w-full h-2 bg-muted rounded-full overflow-hidden">

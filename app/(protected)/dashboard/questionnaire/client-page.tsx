@@ -63,7 +63,7 @@ export function ClientQuestionnaire({ user, hasApprovedAdmin, hasRequestedAdmin 
         </DialogContent>
       </Dialog>
 
-      <div className="container grid gap-8">
+      <div className="hover-card">
         <WelcomeToast username={user.name} />
         <DashboardHeader
           heading="Questionnaire"

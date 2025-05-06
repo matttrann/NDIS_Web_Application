@@ -114,12 +114,13 @@
 .rcorners2 {
   position:relative;
   border-radius: 50px;
-  background: #4cff4c;
+  background: #06402B;
   padding: 10px; 
   border: 1px solid #666;
   width: 50%;
   color: #ffffff;
-  text-align: center;
+  text-align: right;
+  font-size: 25px;
   text-shadow: 2px 2px 6px red;
 }
 
@@ -153,9 +154,8 @@
   width: 100%;
   height: 100%;
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="4" fill="%23ff7eb3" /><circle cx="4" cy="4" r="2" fill="%23ff758c" /><circle cx="16" cy="16" r="2" fill="%23ff758c" /></svg>') repeat;
-  background-size: 50px 50px;
-  border-radius: 20px;
-  background-color: #9fdcff;
+  background-size: 100px 100px;
+  background-color: #ffffff;
   font-size: 20px;
   text-align: center;
   cursor: pointer;
