@@ -11,6 +11,14 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/shared/icons";
 import { ConfettiCelebration } from "@/components/shared/confetti-celebration";
+import "@/styles/globals.css";  
+import Image from 'next/image'
+import { text } from "stream/consumers";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { string } from "prop-types";
+
+
 
 interface QuestionnaireAnswers {
   whoisInvolved: string;
@@ -49,24 +57,28 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   // Function to check if the current question has been answered
   const isCurrentQuestionAnswered = (): boolean => {
     switch (currentStep) {
-      case 0: //  who is Involved
+      case 0: // Welcome screen
+        return true; // No answer required for the welcome screen
+      case 1: //  who is Involved
         return !!answers.whoisInvolved.trim();
-      case 1: // Who can help
+      case 2: // Who can help
         return !!answers.whoCanHelp.trim();
-      case 2: // what is the situation
+      case 3: // what is the situation
         return !!answers.situation.trim();
-      case 3: // when does it happen
+      case 4: // when does it happen
         return !!answers.when.trim();
-      case 4: // where does it happen
+      case 5: // where does it happen
         return !!answers.where.trim();
-      case 5: // Why is the situation difficult
+      case 6: // Why is the situation difficult
         return !!answers.why.trim();
-      case 6: // What strategy helps
+      case 7: // What strategy helps
         return !!answers.whatStrategyHelps.trim();
-      case 7: // Strengths
+      case 8: // Strengths
         return !!answers.storyFeel;
-      case 8: // Communication Preferences
+      case 9: // Communication Preferences
         return !!answers.whatStoryShow.trim();
+      case 10: // Finishing screen
+        return true; // No answer required for the last step
       default:
         return false;
     }
@@ -97,87 +109,169 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     return true;
   };
 
+  const onEnterAvatar = ({ currentTarget }) => {
+    let q = gsap.utils.selector(currentTarget);
+    gsap.to(currentTarget, { scale: 1.2 });
+  };
+  
+  const onLeaveAvatar = ({ currentTarget }) => {
+    let q = gsap.utils.selector(currentTarget);
+    gsap.to(currentTarget, { scale: 1 });
+  };
+
+  var talk = "Hello! I'm here to help you with your story. Let's get started!"
+  const onEnterButton = ({ currentTarget }) => {
+    let q = gsap.utils.selector(currentTarget);
+    gsap.to(currentTarget, { scale: 0.8 });
+    talk = "Great! Let's move on to the next question."
+  };
+  
+  const onLeaveButton = ({ currentTarget }) => {
+    let q = gsap.utils.selector(currentTarget);
+    gsap.to(currentTarget, { scale: 1 });
+  };
+
+  const onEnterTextBox = ({ currentTarget }) => {
+    let q = gsap.utils.selector(currentTarget);
+    gsap.to(currentTarget, { backgroundColor: "#e77614" });
+  };
+  
+  const onLeaveTextBox = ({ currentTarget }) => {
+    let q = gsap.utils.selector(currentTarget);
+    gsap.to(currentTarget, { backgroundColor: "#4cff4c"});
+  };
+
+  const imageStyle = {
+    borderRadius: '50%',
+    border: '1px solid #000',
+    backgroundColor: '#6B4984',
+    cssFloat: 'right',
+    marginBottom: '15px',
+    marginRight: '10px',
+  }
+
   // Define all questions as components
   const questionComponents = [
+    // Welcome screen
+    <>
+      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'> {talk}</span>
+      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
+      width={150} 
+      height={150}/></h3>
+    </>,
+
     // Question 1: 1.	WHO is involved within this story?
     <>
-      <h3 className="text-lg font-medium mb-4">WHO is involved within this story?</h3>
+      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2' onMouseEnter={onEnterTextBox} onMouseLeave={onLeaveTextBox}>WHO are the people (or maybe even animals!) in this situation? 
+      </span><Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
+      width={150} 
+      height={150} onMouseEnter={onEnterAvatar} onMouseLeave={onLeaveAvatar}/></h3>
       <Textarea
         value={answers.whoisInvolved}
         onChange={(e) => setAnswers({ ...answers, whoisInvolved: e.target.value })}
         placeholder="e.g., My mother, my friend Sarah, etc."
         className="min-h-[100px]"
+        style={{ backgroundColor: "white" }}
       />
     </>,
 
     // Question 2: WHO can you trust to help you through a tough situation?
     <>
-      <h3 className="text-lg font-medium mb-4">WHO can you trust to help you through a tough situation?</h3>
+      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHO can you trust to help you through this tough situation?</span>
+      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
+      width={150} 
+      height={150}/></h3>
       <Textarea
         value={answers.whoCanHelp}
         onChange={(e) => setAnswers({ ...answers, whoCanHelp: e.target.value })}
         placeholder="e.g., My mother, my friend Sarah, etc."
         className="min-h-[100px]"
+        style={{ backgroundColor: "white" }}
       />
     </>,
 
     // Question 3: WHAT is the situation or challenge in your story? 
     <>
-    <h3 className="text-lg font-medium mb-4">WHAT is the situation or challenge in your story?</h3>
+    <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHAT were the people (or animals doing)? What was happening around them?</span>
+    <Image  style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
+      width={150} 
+      height={150}/></h3>
     <Textarea
       value={answers.situation}
       onChange={(e) => setAnswers({ ...answers, situation: e.target.value })}
       placeholder="e.g. I have too much energy and fidget"
       className="min-h-[100px]"
+      style={{ backgroundColor: "white" }}
     />
   </>,
 
   // Question 4: WHEN does this situation occur?
   <>
-  <h3 className="text-lg font-medium mb-4">WHEN does this situation occur?</h3>
+  <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>What time it is or what day it is WHEN this situation takes place. 
+    Is it a long time ago, in the morning, or at night?</span>
+    <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
+      width={150} 
+      height={150}/></h3>
   <Textarea
     value={answers.when}
     onChange={(e) => setAnswers({ ...answers, when: e.target.value })}
     placeholder="e.g., During story time"
     className="min-h-[100px]"
+    style={{ backgroundColor: "white" }}
   />
 </>,
 
     // Question 5: WHERE does it happen? 
     <>
-    <h3 className="text-lg font-medium mb-4">WHERE does it happen? </h3>
+    <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHERE is this situation taking place? Is 
+      it at home, at school, in a park, or somewhere else?</span>
+      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
+      width={150} 
+      height={150}/></h3>
     <Textarea
       value={answers.where}
       onChange={(e) => setAnswers({ ...answers, where: e.target.value })}
       placeholder="e.g., in maths class"
       className="min-h-[100px]"
+      style={{ backgroundColor: "white" }}
     />
   </>,
 
     // Question 6: WHY is this situation hard for you? 
     <>
-      <h3 className="text-lg font-medium mb-4">WHY is this situation hard for you?</h3>
+      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHY is this situation hard for you?</span>
+      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
+      width={150} 
+      height={150}/></h3>
       <Textarea
         value={answers.why}
         onChange={(e) => setAnswers({ ...answers, why: e.target.value })}
         placeholder="e.g. I have too much energy"
         className="min-h-[100px]"
+        style={{ backgroundColor: "white" }}
       />
     </>,
 
     // Question 7: WHAT strategy could help you feel better in this situation? 
     <>
-      <h3 className="text-lg font-medium mb-4">WHAT strategy could help you feel better in this situation?</h3>
-      <Input
+      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHAT strategies could help you feel better in this situation?</span>
+      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
+      width={150} 
+      height={150}/></h3>
+      <Textarea
         value={answers.whatStrategyHelps}
         onChange={(e) => setAnswers({ ...answers, whatStrategyHelps: e.target.value })}
         placeholder="e.g., Making friends, managing emotions, completing tasks independently"
+        style={{ backgroundColor: "white" }}
       />
     </>,
 
     // Question 8: HOW do you want the story to feel? 
     <>
-      <h3 className="text-lg font-medium mb-4">HOW do you want the story to feel?</h3>
+      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>HOW do you want the story to feel?</span>
+      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
+      width={150} 
+      height={150}/></h3>
       <Select 
         onValueChange={(value) => setAnswers({ ...answers, storyFeel: value })}
         value={answers.storyFeel}
@@ -197,12 +291,24 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
     // Question 9: WHAT do you want the story to teach or show? 
     <>
-      <h3 className="text-lg font-medium mb-4">WHAT do you want the story to teach or show? </h3>
+      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHAT do you want the story to teach or show? </span>
+      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
+      width={150} 
+      height={150}/></h3>
       <Input
         value={answers.whatStoryShow}
         onChange={(e) => setAnswers({ ...answers, whatStoryShow: e.target.value })}
         placeholder="e.g., my strategies clearly listed, a character using my strategies"
+        style={{ backgroundColor: "white" }}
       />
+    </>,
+
+    // Finishing screen
+    <>
+      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>Well Done! Thank you for answering my questions </span>
+      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
+      width={150} 
+      height={150}/></h3>
     </>,
   ];
 
@@ -284,11 +390,11 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   }, [answers]);
 
   return (
-    <div className="rounded-lg border bg-card p-8">
+    <div className=" hover-card rounded-lg border bg-card p-8 bg-color">
       {/* Progress bar */}
       <div className="mb-6">
-        <div className="flex justify-between text-sm text-muted-foreground mb-2">
-          <span>Question {currentStep + 1} of {totalSteps}</span>
+        <div className="flex justify-between text-sm text-muted-foreground mb-2 text-color">
+          <span>Step {currentStep + 1} of {totalSteps}</span>
           <span>{Math.round(progressPercentage)}% Complete</span>
         </div>
         <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
@@ -298,6 +404,8 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
           />
         </div>
       </div>
+
+      
 
       <form onSubmit={handleSubmit}>
         {/* Current question */}
@@ -317,7 +425,9 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
             variant="outline" 
             onClick={goPrevStep}
             disabled={currentStep === 0}
-            className="w-28"
+            className="big-button"
+            style={{ backgroundColor: "white" }}
+            onMouseEnter={onEnterButton} onMouseLeave={onLeaveButton}            
           >
             <Icons.chevronLeft className="mr-2 h-4 w-4" />
             Previous
@@ -327,8 +437,9 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
             <Button 
               type="button" 
               onClick={goNextStep}
-              className="w-28"
+              className="big-button"
               disabled={!isCurrentQuestionAnswered()}
+              onMouseEnter={onEnterButton} onMouseLeave={onLeaveButton}
             >
               Next
               <Icons.chevronRight className="ml-2 h-4 w-4" />
@@ -337,7 +448,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
             <Button 
               type="submit" 
               disabled={loading || !isCurrentQuestionAnswered()}
-              className="w-28"
+              className="big-button"
             >
               {loading ? (
                 <>

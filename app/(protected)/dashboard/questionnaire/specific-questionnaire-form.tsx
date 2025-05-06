@@ -80,9 +80,10 @@ export function SpecificQuestionnaireForm({ userId }: { userId: string }) {
 
   // Define all questions as components
   const questionComponents = [
-    // Question 1: Who
+    // Question 1: Who, who are the people (or maybe even animals!) in the story.
     <>
-      <h3 className="text-lg font-medium mb-4">Who does the situation involve?</h3>
+      <h3 className="text-lg font-medium mb-4"> <span className='oval'>Who does the situation involve?
+        </span></h3> 
       <Textarea
         value={answers.who}
         onChange={(e) => setAnswers({ ...answers, who: e.target.value })}
@@ -91,7 +92,7 @@ export function SpecificQuestionnaireForm({ userId }: { userId: string }) {
       />
     </>,
 
-    // Question 2: What
+    // Question 2: What, What are the people or animals doing? What is happening around them?
     <>
     <h3 className="text-lg font-medium mb-4">What happens in the situation?</h3>
     <Textarea
@@ -102,7 +103,7 @@ export function SpecificQuestionnaireForm({ userId }: { userId: string }) {
     />
   </>,
 
-    // Question 3: Where
+    // Question 3: Where, where is the story taking place? Is it at home, at school, in a park, or somewhere else?
     <>
     <h3 className="text-lg font-medium mb-4">Where does the situation happen?</h3>
     <Textarea
@@ -113,7 +114,7 @@ export function SpecificQuestionnaireForm({ userId }: { userId: string }) {
     />
   </>,
 
-    // Question 4: When
+    // Question 4: When, when is the story taking place? Is it during the day, at night, or at a specific time?
     <>
       <h3 className="text-lg font-medium mb-4">When does the situation happen?</h3>
       <Textarea
@@ -124,7 +125,7 @@ export function SpecificQuestionnaireForm({ userId }: { userId: string }) {
       />
     </>,
 
-    // Question 5: Why
+    // Question 5: Why, what made everything start? What are the reasons behind the actions of the people or animals?
     <>
     <h3 className="text-lg font-medium mb-4">Why does the situation happen?</h3>
     <Textarea
@@ -227,6 +228,12 @@ export function SpecificQuestionnaireForm({ userId }: { userId: string }) {
           />
         </div>
       </div>
+
+      <div className='img'>
+        
+      </div>
+
+
 
       <form onSubmit={handleSubmit}>
         {/* Current question */}
