@@ -64,7 +64,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
       case 6: // What strategy helps
         return !!answers.whatStrategyHelps.trim();
       case 7: // Strengths
-        return !!answers.storyFeel;
+        return !!answers.storyFeel.trim();
       case 8: // Communication Preferences
         return !!answers.whatStoryShow.trim();
       default:
@@ -101,7 +101,13 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   const questionComponents = [
     // Question 1: 1.	WHO is involved within this story?
     <>
-      <h3 className="text-lg font-medium mb-4">WHO is involved within this story?</h3>
+      <h3 className="text-lg font-medium mb-4">
+        <span 
+          title="Please give the name of anyone involved in the story and your relationship to them" 
+          className="underline cursor-help">
+            WHO is involved within this story?
+          </span>
+      </h3> 
       <Textarea
         value={answers.whoisInvolved}
         onChange={(e) => setAnswers({ ...answers, whoisInvolved: e.target.value })}
@@ -112,7 +118,13 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
     // Question 2: WHO can you trust to help you through a tough situation?
     <>
-      <h3 className="text-lg font-medium mb-4">WHO can you trust to help you through a tough situation?</h3>
+      <h3 className="text-lg font-medium mb-4">
+      <span 
+          title="Please give the name of anyone who can help you in this situation and your relationship to them" 
+          className="underline cursor-help">
+            WHO can you trust to help you through a tough situation?
+          </span>
+      </h3>
       <Textarea
         value={answers.whoCanHelp}
         onChange={(e) => setAnswers({ ...answers, whoCanHelp: e.target.value })}
@@ -123,7 +135,13 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
     // Question 3: WHAT is the situation or challenge in your story? 
     <>
-    <h3 className="text-lg font-medium mb-4">WHAT is the situation or challenge in your story?</h3>
+    <h3 className="text-lg font-medium mb-4">
+      <span 
+          title="Please describe the situation. Only describe one situation at a time, you can create additional stories for additional situations" 
+          className="underline cursor-help">
+            WHAT is the situation or challenge in your story?
+          </span>
+    </h3>
     <Textarea
       value={answers.situation}
       onChange={(e) => setAnswers({ ...answers, situation: e.target.value })}
@@ -134,18 +152,30 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
   // Question 4: WHEN does this situation occur?
   <>
-  <h3 className="text-lg font-medium mb-4">WHEN does this situation occur?</h3>
+  <h3 className="text-lg font-medium mb-4">
+    <span 
+          title="Please describe when the situation occcures. This might be a specific time of day or when an event happens" 
+          className="underline cursor-help">
+            WHEN does this situation occur?
+          </span>
+  </h3>
   <Textarea
     value={answers.when}
     onChange={(e) => setAnswers({ ...answers, when: e.target.value })}
-    placeholder="e.g., During story time"
+    placeholder="e.g.At 12:00pm or During story time"
     className="min-h-[100px]"
   />
 </>,
 
     // Question 5: WHERE does it happen? 
     <>
-    <h3 className="text-lg font-medium mb-4">WHERE does it happen? </h3>
+    <h3 className="text-lg font-medium mb-4">
+      <span 
+          title="Please describe where the situation occcures. For example if the situation happens when a teacher is talking it might happen in the classroom" 
+          className="underline cursor-help">
+            WHERE does it happen?
+          </span>
+    </h3>
     <Textarea
       value={answers.where}
       onChange={(e) => setAnswers({ ...answers, where: e.target.value })}
@@ -156,7 +186,13 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
     // Question 6: WHY is this situation hard for you? 
     <>
-      <h3 className="text-lg font-medium mb-4">WHY is this situation hard for you?</h3>
+      <h3 className="text-lg font-medium mb-4">
+        <span 
+          title="Please describe what you find challenging. This question is asking what makes you react in a given way" 
+          className="underline cursor-help">
+            WHY is this situation hard for you?
+          </span>
+      </h3>
       <Textarea
         value={answers.why}
         onChange={(e) => setAnswers({ ...answers, why: e.target.value })}
@@ -165,9 +201,15 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
       />
     </>,
 
-    // Question 7: WHAT strategy could help you feel better in this situation? 
+    // Question 7: WHAT strategies could help you feel better in this situation? 
     <>
-      <h3 className="text-lg font-medium mb-4">WHAT strategy could help you feel better in this situation?</h3>
+      <h3 className="text-lg font-medium mb-4">
+        <span 
+          title="Please describe the strategies you have found help you face this situation" 
+          className="underline cursor-help">
+            WHAT strategies could help you feel better in this situation?
+          </span>
+      </h3>
       <Input
         value={answers.whatStrategyHelps}
         onChange={(e) => setAnswers({ ...answers, whatStrategyHelps: e.target.value })}
@@ -177,27 +219,29 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
     // Question 8: HOW do you want the story to feel? 
     <>
-      <h3 className="text-lg font-medium mb-4">HOW do you want the story to feel?</h3>
-      <Select 
-        onValueChange={(value) => setAnswers({ ...answers, storyFeel: value })}
+      <h3 className="text-lg font-medium mb-4">
+        <span 
+          title="What do you want the story to do? Should it calm you before facing it? Encourage you to try again? Something else?" 
+          className="underline cursor-help">
+            HOW do you want the story to feel?
+          </span>
+      </h3>
+      <Input
         value={answers.storyFeel}
-      >
-        <SelectTrigger>
-          <SelectValue placeholder="Select your mood" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="Calming"> Calming</SelectItem>
-          <SelectItem value="Reassuring"> Reassuring</SelectItem>
-          <SelectItem value="Encouraging"> Encouraging</SelectItem>
-          <SelectItem value="Funny"> Funny</SelectItem>
-          <SelectItem value="Adventurous"> Adventurous</SelectItem>
-        </SelectContent>
-      </Select>
+        onChange={(e) => setAnswers({ ...answers, storyFeel: e.target.value })}
+        placeholder="e.g. Encouraging, exciting, positive"
+      />
     </>,
 
     // Question 9: WHAT do you want the story to teach or show? 
     <>
-      <h3 className="text-lg font-medium mb-4">WHAT do you want the story to teach or show? </h3>
+      <h3 className="text-lg font-medium mb-4">
+        <span 
+          title="What is the story for? Is it a quick review of the strategies you can use? Is it reminding you of why you want to use those strategies? Something else?" 
+          className="underline cursor-help">
+            WHAT do you want the story to teach or show? 
+          </span>
+      </h3>
       <Input
         value={answers.whatStoryShow}
         onChange={(e) => setAnswers({ ...answers, whatStoryShow: e.target.value })}
