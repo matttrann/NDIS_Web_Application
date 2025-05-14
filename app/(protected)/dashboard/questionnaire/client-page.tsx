@@ -16,8 +16,8 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/shared/icons";
-import Image from 'next/image'
-import { getImageProps } from 'next/image'
+import "@/styles/questionnaire-bg.css";
+import "@/styles/shootingStar.css";
 
 interface ClientQuestionnaireProps {
   user: User;
@@ -41,12 +41,14 @@ export function ClientQuestionnaire({ user, hasApprovedAdmin, hasRequestedAdmin 
     ? "Waiting for Admin Approval"
     : "Admin Access Required";
 
-  const imageStyle = {
-      border: '1px solid #000',     
-  }
-
   return (
-    <>
+    <div className="container grid gap-8">
+      <div className="stars"></div>
+      <div className="shooting-star"></div>
+      <div className="shooting-star"></div>
+      <div className="shooting-star"></div>
+      <div className="shooting-star"></div>
+      <div className="shooting-star"></div>
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -63,7 +65,7 @@ export function ClientQuestionnaire({ user, hasApprovedAdmin, hasRequestedAdmin 
         </DialogContent>
       </Dialog>
 
-      <div className="hover-card">
+      <div className="rounded-lg p-8 text-color">
         <WelcomeToast username={user.name} />
         <DashboardHeader
           heading="Questionnaire"
@@ -88,6 +90,6 @@ export function ClientQuestionnaire({ user, hasApprovedAdmin, hasRequestedAdmin 
           </div>          
         )}
       </div>
-    </>
+    </div>
   );
 } 

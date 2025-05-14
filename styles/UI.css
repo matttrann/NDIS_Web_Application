@@ -1,0 +1,81 @@
+/* Paper-like effect with rounded corners and border */ 
+  .paper-like {
+    border-top-left-radius: 37px 140px;
+    border-top-right-radius: 23px 130px;
+    border-bottom-left-radius: 110px 19px;
+    border-bottom-right-radius: 120px 24px;
+    width: 90%;
+    min-height: 100%;
+    position: relative;
+    border: solid 3px #6e7491;
+    font-size: 17px;
+    line-height: 28px;
+    box-shadow: 3px 15px 8px -10px rgba(0, 0, 0, 0.3);
+    transition: all 0.13s ease-in;
+    background-color: #f9f9f9;;
+    padding: 2rem;
+    font-family: 'Just Another Hand', cursive;
+    margin: auto;
+  }
+
+  /* Rounded corners with shadow effect */
+  .rcorners2 {
+    position:relative;
+    border-radius: 50px;
+    background: #7FD8BE;
+    padding: 20px; 
+    border: solid 2px #6e7491;
+    width: 50%;
+    color: #ffffff;
+    font-size: 25px;
+    text-shadow: 2px 2px 6px red;
+    height: 100px;
+    width: 85%;
+    float: left;
+    box-shadow: 3px 15px 8px -10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+
+  .sketchy {
+    border: 3px solid #333333;
+    border-radius: 2% 6% 5% 4% / 1% 1% 2% 4%;
+    letter-spacing: 0.3ch;
+    background: #ffffff;
+    position: relative;
+    min-height: 100px;
+    color: #000;
+    
+    &::before {
+        content: '';
+        border: 2px solid #353535;
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0) scale(1.015) rotate(0.5deg);
+        border-radius: 1% 1% 2% 4% / 2% 6% 5% 4%;
+    }
+}
+  
+  /* Text alignment classes */
+  .align-right {
+    text-align: right;
+  }
+
+  
+  .text-color {
+    color: #ffffff;
+    font-weight: bold;
+    font-family: 'Just Another Hand', cursive;
+  }
+  
+
+  .avatar-img {
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 5px;
+    width: 150px;
+    background-image: url(/public/avatar-pic/Sport_Kangaroo.png);
+  }

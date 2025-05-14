@@ -11,7 +11,10 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/shared/icons";
 import { ConfettiCelebration } from "@/components/shared/confetti-celebration";
-import "@/styles/globals.css";  
+import "@/styles/UI.css";
+import "@/styles/button.css";
+import "@/styles/bird.css";
+import "@/styles/loadingBar.css";
 import Image from 'next/image'
 import { gsap } from "gsap";
 
@@ -107,7 +110,71 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     return true;
   };
 
-  const [talk, setTalk] = useState("Hello! I'm here to help you with your story. Let's get started!");
+  const questions = [
+    "Hello! I'm here to help you with your story. Let's get started!",
+    "WHO are the people (or maybe even animals!) in this situation?",
+    "WHO can you trust to help you through this tough situation?",
+    "WHAT were the people (or animals doing)? What was happening around them?",
+    "What time it is or what day it is WHEN this situation takes place. Is it a long time ago, in the morning, or at night?",
+    "WHERE is this situation taking place? Is it at home, at school, in a park, or somewhere else?",
+    "WHY is this situation hard for you?",
+    "WHAT strategies could help you feel better in this situation?",
+    "HOW do you want the story to feel?",
+    "WHAT do you want the story to teach or show?",
+    "Well Done! Thank you for answering my questions"
+  ];
+
+  function getRandomColor() {
+    // Generate a random number between 0 and 0xffffff (16777215).
+    const randomValue = Math.random() * 0xffffff;
+  
+    // Convert the random number to an integer (base 10).
+    const integerValue = Math.floor(randomValue);
+  
+    // Convert the integer to a hexadecimal string.
+    const hexString = integerValue.toString(16);
+  
+    // Pad the hexadecimal string with leading zeros if necessary to ensure it's 6 characters long.
+    const paddedHexString = hexString.padStart(6, '0');
+  
+    // Prepend the '#' character to form a valid CSS color string.
+    const color = '#' + paddedHexString;
+  
+    return color;
+  }
+
+  const loadingBarStyle = [
+    "bar shadow overlap",
+    "bar shadow leaf",
+    "bar shadow bars",
+    "bar shadow lines",
+    "bar shadow wiggle",
+    "bar shadow dots",
+    "bar shadow circuit",
+    "bar shadow aztec",
+    "bar shadow bees",
+    "bar shadow food",
+    "bar shadow clouds",
+    "bar shadow stripes",
+    "bar shadow crosses",
+    "bar shadow jupiter",
+    "bar shadow piano",
+    "bar shadow dominos",
+    "bar shadow pie",
+    "bar shadow floor",
+    "bar shadow bubbles",
+    "bar shadow ticTac",
+    "bar shadow zigZag"
+  ]
+
+  function getRandomLoadingBar() {   
+    const randomNumber = Math.floor(Math.random() * 20) + 1;
+    return loadingBarStyle[randomNumber];
+  }
+  
+  const [loadingBar, setLoadingBar] = useState(getRandomLoadingBar);
+    
+  const [talk, setTalk] = useState(questions[0]);
 
   const onEnterProgress = ({ currentTarget }) => {
     let q = gsap.utils.selector(currentTarget);
@@ -116,175 +183,152 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   
   const onLeaveProgress = ({ currentTarget }) => {
     let q = gsap.utils.selector(currentTarget);
-    setTalk("Hello! I'm here to help you with your story. Let's get started!");
+    setTalk(questions[currentStep]);
   };
 
   const onEnterAvatar = ({ currentTarget }) => {
     let q = gsap.utils.selector(currentTarget);
     gsap.to(currentTarget, { scale: 0.8 });
+    gsap.to(currentTarget, { backgroundColor: getRandomColor()});
     setTalk("That is tickles!");
   };
   
   const onLeaveAvatar = ({ currentTarget }) => {
     let q = gsap.utils.selector(currentTarget);
     gsap.to(currentTarget, { scale: 1 });
-    setTalk("Hello! I'm here to help you with your story. Let's get started!");
+    setTalk(questions[currentStep]);
+    gsap.to(currentTarget, { backgroundColor: "#6B4984"});
   };
 
- 
   const onEnterButton = ({ currentTarget }) => {
     let q = gsap.utils.selector(currentTarget);
     gsap.to(currentTarget, { scale: 0.8 });
-    setTalk("Great! Let's start.");
+    if (currentStep === 0) {
+      setTalk("Great! Let's start.");
+    } else {
+      setTalk("Good job! Let's get to the next one.");
+    }
   };
   
   const onLeaveButton = ({ currentTarget }) => {
     let q = gsap.utils.selector(currentTarget);
     gsap.to(currentTarget, { scale: 1 });
-    setTalk("Hello! I'm here to help you with your story. Let's get started!");
+    setTalk(questions[currentStep]);
   };
 
   const onEnterTextBox = ({ currentTarget }) => {
     let q = gsap.utils.selector(currentTarget);
-    gsap.to(currentTarget, { backgroundColor: "#e77614" });
+    gsap.to(currentTarget, { backgroundColor: getRandomColor()});
   };
   
   const onLeaveTextBox = ({ currentTarget }) => {
     let q = gsap.utils.selector(currentTarget);
-    gsap.to(currentTarget, { backgroundColor: "#4cff4c"});
+    gsap.to(currentTarget, { backgroundColor: "#7FD8BE"});
   };
 
   const imageStyle = {
     borderRadius: '50%',
     border: '1px solid #000',
     backgroundColor: '#6B4984',
-    cssFloat: 'right',
     marginBottom: '15px',
     marginRight: '10px',
   }
+
+  const avatarImage = <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
+      width={150} 
+      height={150} onMouseEnter={onEnterAvatar} onMouseLeave={onLeaveAvatar}/>
+
+  const questionHeader = <h3 className="align-right"><div className='rcorners2' onMouseEnter={onEnterTextBox} onMouseLeave={onLeaveTextBox}>{talk} </div>
+  {avatarImage}</h3>
+
 
   // Define all questions as components
   const questionComponents = [
     // Welcome screen
     <>
-      <h3><span className='rcorners2'> {talk}</span>
-      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
-      width={150} 
-      height={150} onMouseEnter={onEnterAvatar} onMouseLeave={onLeaveAvatar}/></h3>
+      {questionHeader}
     </>,
 
     // Question 1: 1.	WHO is involved within this story?
     <>
-      <h3><span className='rcorners2' onMouseEnter={onEnterTextBox} onMouseLeave={onLeaveTextBox}>WHO are the people (or maybe even animals!) in this situation? 
-      </span><Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
-      width={150} 
-      height={150} onMouseEnter={onEnterAvatar} onMouseLeave={onLeaveAvatar}/></h3>
+     {questionHeader}
       <Textarea
         value={answers.whoisInvolved}
         onChange={(e) => setAnswers({ ...answers, whoisInvolved: e.target.value })}
         placeholder="e.g., My mother, my friend Sarah, etc."
-        className="min-h-[100px]"
-        style={{ backgroundColor: "white" }}
+        className="sketchy"
       />
     </>,
 
     // Question 2: WHO can you trust to help you through a tough situation?
     <>
-      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHO can you trust to help you through this tough situation?</span>
-      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
-      width={150} 
-      height={150}/></h3>
+      {questionHeader}
       <Textarea
         value={answers.whoCanHelp}
         onChange={(e) => setAnswers({ ...answers, whoCanHelp: e.target.value })}
         placeholder="e.g., My mother, my friend Sarah, etc."
-        className="min-h-[100px]"
-        style={{ backgroundColor: "white" }}
+        className="sketchy"
       />
     </>,
 
     // Question 3: WHAT is the situation or challenge in your story? 
     <>
-    <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHAT were the people (or animals doing)? What was happening around them?</span>
-    <Image  style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
-      width={150} 
-      height={150}/></h3>
+    {questionHeader}
     <Textarea
       value={answers.situation}
       onChange={(e) => setAnswers({ ...answers, situation: e.target.value })}
       placeholder="e.g. I have too much energy and fidget"
-      className="min-h-[100px]"
-      style={{ backgroundColor: "white" }}
+      className="sketchy"
     />
   </>,
 
   // Question 4: WHEN does this situation occur?
   <>
-  <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>What time it is or what day it is WHEN this situation takes place. 
-    Is it a long time ago, in the morning, or at night?</span>
-    <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
-      width={150} 
-      height={150}/></h3>
+  {questionHeader}
   <Textarea
     value={answers.when}
     onChange={(e) => setAnswers({ ...answers, when: e.target.value })}
     placeholder="e.g., During story time"
-    className="min-h-[100px]"
-    style={{ backgroundColor: "white" }}
+    className="sketchy"
   />
 </>,
 
     // Question 5: WHERE does it happen? 
     <>
-    <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHERE is this situation taking place? Is 
-      it at home, at school, in a park, or somewhere else?</span>
-      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
-      width={150} 
-      height={150}/></h3>
+    {questionHeader}
     <Textarea
       value={answers.where}
       onChange={(e) => setAnswers({ ...answers, where: e.target.value })}
       placeholder="e.g., in maths class"
-      className="min-h-[100px]"
-      style={{ backgroundColor: "white" }}
+      className="sketchy"
     />
   </>,
 
     // Question 6: WHY is this situation hard for you? 
     <>
-      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHY is this situation hard for you?</span>
-      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
-      width={150} 
-      height={150}/></h3>
+     {questionHeader}
       <Textarea
         value={answers.why}
         onChange={(e) => setAnswers({ ...answers, why: e.target.value })}
         placeholder="e.g. I have too much energy"
-        className="min-h-[100px]"
-        style={{ backgroundColor: "white" }}
+        className="sketchy"
       />
     </>,
 
     // Question 7: WHAT strategy could help you feel better in this situation? 
     <>
-      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHAT strategies could help you feel better in this situation?</span>
-      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
-      width={150} 
-      height={150}/></h3>
+      {questionHeader}
       <Textarea
         value={answers.whatStrategyHelps}
         onChange={(e) => setAnswers({ ...answers, whatStrategyHelps: e.target.value })}
         placeholder="e.g., Making friends, managing emotions, completing tasks independently"
-        style={{ backgroundColor: "white" }}
+        className="sketchy"
       />
     </>,
 
     // Question 8: HOW do you want the story to feel? 
     <>
-      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>HOW do you want the story to feel?</span>
-      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
-      width={150} 
-      height={150}/></h3>
+      {questionHeader}
       <Select 
         onValueChange={(value) => setAnswers({ ...answers, storyFeel: value })}
         value={answers.storyFeel}
@@ -304,24 +348,18 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
     // Question 9: WHAT do you want the story to teach or show? 
     <>
-      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>WHAT do you want the story to teach or show? </span>
-      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
-      width={150} 
-      height={150}/></h3>
-      <Input
+      {questionHeader}
+      <Textarea
         value={answers.whatStoryShow}
         onChange={(e) => setAnswers({ ...answers, whatStoryShow: e.target.value })}
         placeholder="e.g., my strategies clearly listed, a character using my strategies"
-        style={{ backgroundColor: "white" }}
+        className="sketchy"
       />
     </>,
 
     // Finishing screen
     <>
-      <h3 className="text-lg font-medium mb-4 align-right"><span className='rcorners2'>Well Done! Thank you for answering my questions </span>
-      <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
-      width={150} 
-      height={150}/></h3>
+      {questionHeader}
     </>,
   ];
 
@@ -385,11 +423,13 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     
     setValidationError("");
     setCurrentStep(prev => Math.min(prev + 1, questionComponents.length - 1));
+    setTalk(questions[currentStep]);
   };
 
   const goPrevStep = () => {
     setValidationError("");
     setCurrentStep(prev => Math.max(prev - 1, 0));
+    setTalk(questions[currentStep]);
   };
 
   const totalSteps = questionComponents.length;
@@ -403,20 +443,21 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   }, [answers]);
 
   return (
-    <div className="rounded-lg border bg-card p-8 bg-color">
+    <div className="paper-like">
       {/* Progress bar */}
       <div className="mb-6" onMouseEnter={onEnterProgress} onMouseLeave={onLeaveProgress}>
-        <div className="flex justify-between text-sm text-muted-foreground mb-2 text-color"  onMouseEnter={onEnterProgress} onMouseLeave={onLeaveProgress}>
+        <div className="flex justify-between text-sm text-muted-foreground mb-2"  onMouseEnter={onEnterProgress} onMouseLeave={onLeaveProgress}>
           <b>Step {currentStep + 1} of {totalSteps}</b>
           <span>{Math.round(progressPercentage)}% Complete</span>
         </div>
-        <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
+        <div className="progress">
           <div 
-            className="h-full bg-primary transition-all duration-300 ease-in-out" 
+            className= {loadingBar}
             style={{ width: `${progressPercentage}%` }}
           />
         </div>
       </div>
+      
 
       
 
@@ -453,7 +494,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
               className="big-button"
               disabled={!isCurrentQuestionAnswered()}
               onMouseEnter={onEnterButton} onMouseLeave={onLeaveButton}
-            >
+            >                
               Next
               <Icons.chevronRight className="ml-2 h-4 w-4" />
             </Button>
