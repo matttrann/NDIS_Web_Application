@@ -315,7 +315,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
       />
     </>,
 
-    // Question 7: WHAT strategy could help you feel better in this situation? 
+    // Question 7: WHAT strategies could help you feel better in this situation? 
     <>
       {questionHeader}
       <Textarea

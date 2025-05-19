@@ -1,3 +1,4 @@
+
 import { notFound } from "next/navigation";
 import { allPages } from "contentlayer/generated";
 
@@ -76,7 +77,7 @@ export default async function PagePage({
             </p>
             <h3>Contact Us</h3>
             <p>
-              If you have any questions about this Privacy Policy, then skibidi toilet.
+              If you have any questions about this Privacy Policy, then contact us at t234capstone@gmail.com.
             </p>
           </>
         ) : params.slug === 'terms' ? (
@@ -93,6 +94,11 @@ export default async function PagePage({
             <h3>Changes to Terms</h3>
             <p>
               We reserve the right to modify these terms at any time. Continued use of the service constitutes acceptance of modified terms.
+            </p>
+            <h3>Use of Generative AI</h3>
+            <p>
+            Generative AI is used in the creation of stories and videos. This is an inherently unpredictable tool and adults are required to 
+            verify the suitability of content before showing it to children.
             </p>
           </>
         ) : null}
