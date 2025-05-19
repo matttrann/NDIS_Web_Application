@@ -66,16 +66,16 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
         return !!answers.whoCanHelp.trim();
       case 3: // what is the situation
         return !!answers.situation.trim();
-      case 4: // when does it happen
+      case 4: // when does it happen?
         return !!answers.when.trim();
-      case 5: // where does it happen
+      case 5: // where does it happen?
         return !!answers.where.trim();
-      case 6: // Why is the situation difficult
+      case 6: // Why is the situation difficult?
         return !!answers.why.trim();
       case 7: // What strategy helps
         return !!answers.whatStrategyHelps.trim();
       case 8: // Strengths
-        return !!answers.storyFeel;
+        return !!answers.storyFeel.trim();
       case 9: // Communication Preferences
         return !!answers.whatStoryShow.trim();
       case 10: // Finishing screen
@@ -99,7 +99,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
       { field: answers.whatStoryShow.trim(), name: "What the story should show" }
     ];
 
-    // Find first missing field
+    // Find the first missing field
     const missingField = requiredFields.find(field => !field.field);
     
     if (missingField) {
@@ -115,7 +115,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     "WHO are the people (or maybe even animals!) in this situation?",
     "WHO can you trust to help you through this tough situation?",
     "WHAT were the people (or animals doing)? What was happening around them?",
-    "What time it is or what day it is WHEN this situation takes place. Is it a long time ago, in the morning, or at night?",
+    "WHEN this situation takes place. Is it a long time ago, in the morning, or at night?",
     "WHERE is this situation taking place? Is it at home, at school, in a park, or somewhere else?",
     "WHY is this situation hard for you?",
     "WHAT strategies could help you feel better in this situation?",
