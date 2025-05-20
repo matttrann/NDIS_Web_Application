@@ -114,8 +114,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap');
 
 body {
-  background: linear-gradient(to bottom, #0b0b2b, #1b2735 70%, #090a0f);
-  color: #fff;
+  background: 0, 100%, 99%;
+  color: #000000;
   font-family: 'Just Another Hand', cursive;
   line-height: 1.5;
   font-size: 1.25rem;

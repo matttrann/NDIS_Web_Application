@@ -112,11 +112,11 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
 
   const questions = [
     "Hello! I'm here to help you with your story. Let's get started!",
-    "WHO are the people (or maybe even animals!) in this situation?",
-    "WHO can you trust to help you through this tough situation?",
-    "WHAT were the people (or animals doing)? What was happening around them?",
-    "WHEN this situation takes place. Is it a long time ago, in the morning, or at night?",
-    "WHERE is this situation taking place? Is it at home, at school, in a park, or somewhere else?",
+    "WHO is involved within this story?",
+    "WHO can you trust to help you through a tough situation?",
+    "WHAT is the situation or challenge in your story?",
+    "WHEN does this situation occur?",
+    "WHERE does it happen?",
     "WHY is this situation hard for you?",
     "WHAT strategies could help you feel better in this situation?",
     "HOW do you want the story to feel?",
@@ -329,21 +329,12 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     // Question 8: HOW do you want the story to feel? 
     <>
       {questionHeader}
-      <Select 
-        onValueChange={(value) => setAnswers({ ...answers, storyFeel: value })}
+      <Textarea
         value={answers.storyFeel}
-      >
-        <SelectTrigger>
-          <SelectValue placeholder="Select your mood" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="Calming"> Calming</SelectItem>
-          <SelectItem value="Reassuring"> Reassuring</SelectItem>
-          <SelectItem value="Encouraging"> Encouraging</SelectItem>
-          <SelectItem value="Funny"> Funny</SelectItem>
-          <SelectItem value="Adventurous"> Adventurous</SelectItem>
-        </SelectContent>
-      </Select>
+        onChange={(e) => setAnswers({ ...answers, storyFeel: e.target.value })}
+        placeholder="e.g., Calming, reassuring, exciting"
+        className="sketchy"
+      />
     </>,
 
     // Question 9: WHAT do you want the story to teach or show? 

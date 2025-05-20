@@ -28,7 +28,7 @@
     width: 50%;
     color: #ffffff;
     font-size: 25px;
-    text-shadow: 2px 2px 6px red;
+    text-shadow: 2px 2px 6px rgb(0, 0, 0);
     height: 100px;
     width: 85%;
     float: left;
