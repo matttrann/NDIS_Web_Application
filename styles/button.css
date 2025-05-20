@@ -1,4 +1,11 @@
 /* Button hover effect */
+ :root {
+    --colorShadeA: rgb(106, 163, 137);
+    --colorShadeB: rgb(121, 186, 156);
+    --colorShadeC: rgb(150, 232, 195);
+    --colorShadeD: rgb(187, 232, 211);
+    --colorShadeE: rgb(205, 255, 232);
+  }
   
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
 * {
@@ -21,7 +28,6 @@ button {
   font-weight: 700;
   text-transform: uppercase;
   font-family: inherit;
-  text-shadow: 1px 1px 1px red;
 }
 
 button.big-button {
