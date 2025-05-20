@@ -23,15 +23,13 @@
     position:relative;
     border-radius: 50px;
     background: #7FD8BE;
-    padding: 20px; 
+    padding: 30px; 
     border: solid 2px #6e7491;
-    width: 50%;
     color: #ffffff;
     font-size: 25px;
     text-shadow: 2px 2px 6px red;
-    height: 100px;
+    min-height: 150px;
     width: 85%;
-    float: left;
     box-shadow: 3px 15px 8px -10px rgba(0, 0, 0, 0.3);
     text-align: center;
   }
@@ -73,9 +71,6 @@
   
 
   .avatar-img {
-    border: 1px solid #000000;
-    border-radius: 10px;
-    padding: 5px;
     width: 150px;
     background-image: url(/public/avatar-pic/Sport_Kangaroo.png);
   }

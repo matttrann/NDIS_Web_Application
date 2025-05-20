@@ -17,6 +17,7 @@ import "@/styles/bird.css";
 import "@/styles/loadingBar.css";
 import Image from 'next/image'
 import { gsap } from "gsap";
+import { AlignCenter } from "lucide-react";
 
 
 
@@ -115,8 +116,8 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     "WHO are the people (or maybe even animals!) in this situation?",
     "WHO can you trust to help you through this tough situation?",
     "WHAT were the people (or animals doing)? What was happening around them?",
-    "WHEN this situation takes place. Is it a long time ago, in the morning, or at night?",
-    "WHERE is this situation taking place? Is it at home, at school, in a park, or somewhere else?",
+    "WHEN this situation takes place. Is it in the morning, or at night?",
+    "WHERE is this situation taking place? Is it at home or somewhere else?",
     "WHY is this situation hard for you?",
     "WHAT strategies could help you feel better in this situation?",
     "HOW do you want the story to feel?",
@@ -200,13 +201,23 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     gsap.to(currentTarget, { backgroundColor: "#6B4984"});
   };
 
-  const onEnterButton = ({ currentTarget }) => {
+  const onEnterNextButton = ({ currentTarget }) => {
     let q = gsap.utils.selector(currentTarget);
     gsap.to(currentTarget, { scale: 0.8 });
     if (currentStep === 0) {
       setTalk("Great! Let's start.");
     } else {
       setTalk("Good job! Let's get to the next one.");
+    }
+  };
+
+  const onEnterPreviousButton = ({ currentTarget }) => {
+    let q = gsap.utils.selector(currentTarget);
+    gsap.to(currentTarget, { scale: 0.8 });
+    if (currentStep === 0) {
+      setTalk("Great! Let's start.");
+    } else {
+      setTalk("let's go back to the previous question.");
     }
   };
   
@@ -231,15 +242,22 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     border: '1px solid #000',
     backgroundColor: '#6B4984',
     marginBottom: '15px',
-    marginRight: '10px',
+    marginTop: '15px',    
+    cssFloat: 'right'
   }
 
   const avatarImage = <Image style={imageStyle} src="/avatar-pic/Sport_Kangaroo.png" alt="avatar-img"
       width={150} 
       height={150} onMouseEnter={onEnterAvatar} onMouseLeave={onLeaveAvatar}/>
 
-  const questionHeader = <h3 className="align-right"><div className='rcorners2' onMouseEnter={onEnterTextBox} onMouseLeave={onLeaveTextBox}>{talk} </div>
-  {avatarImage}</h3>
+  const questionHeader = (
+    <>
+      <h3>
+        <div className='rcorners2' onMouseEnter={onEnterTextBox} onMouseLeave={onLeaveTextBox}>{talk} </div>
+      </h3>
+      <h4 style={{ display: "flex", justifyContent: "flex-end" }}>{avatarImage}</h4>
+    </>
+  );
 
 
   // Define all questions as components
@@ -481,7 +499,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
             disabled={currentStep === 0}
             className="big-button"
             style={{ backgroundColor: "white" }}
-            onMouseEnter={onEnterButton} onMouseLeave={onLeaveButton}            
+            onMouseEnter={onEnterNextButton} onMouseLeave={onLeaveButton}            
           >
             <Icons.chevronLeft className="mr-2 h-4 w-4" />
             Previous
@@ -493,7 +511,8 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
               onClick={goNextStep}
               className="big-button"
               disabled={!isCurrentQuestionAnswered()}
-              onMouseEnter={onEnterButton} onMouseLeave={onLeaveButton}
+              style={{ color: "rgb(106, 163, 137)" }}
+              onMouseEnter={onEnterPreviousButton} onMouseLeave={onLeaveButton}
             >                
               Next
               <Icons.chevronRight className="ml-2 h-4 w-4" />
