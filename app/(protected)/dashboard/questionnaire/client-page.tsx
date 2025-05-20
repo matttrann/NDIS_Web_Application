@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/shared/icons";
+import "@/styles/questionnaire-bg.css";
+import "@/styles/shootingStar.css";
 
 interface ClientQuestionnaireProps {
   user: User;
@@ -40,7 +42,13 @@ export function ClientQuestionnaire({ user, hasApprovedAdmin, hasRequestedAdmin 
     : "Admin Access Required";
 
   return (
-    <>
+    <div className="container grid gap-8">
+      <div className="stars"></div>
+      <div className="shooting-star"></div>
+      <div className="shooting-star"></div>
+      <div className="shooting-star"></div>
+      <div className="shooting-star"></div>
+      <div className="shooting-star"></div>
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -57,11 +65,11 @@ export function ClientQuestionnaire({ user, hasApprovedAdmin, hasRequestedAdmin 
         </DialogContent>
       </Dialog>
 
-      <div className="container grid gap-8">
+      <div className="rounded-lg p-8 text-color">
         <WelcomeToast username={user.name} />
         <DashboardHeader
           heading="Questionnaire"
-          text="Complete your questionnaire to help us understand your needs."
+          text="Tell us your story, so we can understand your needs."
         />
         {hasApprovedAdmin ? (
           <div className="grid gap-8">
@@ -79,9 +87,9 @@ export function ClientQuestionnaire({ user, hasApprovedAdmin, hasRequestedAdmin 
                 {hasRequestedAdmin ? "Check Request Status" : "Request Admin Access"}
               </Button>
             </div>
-          </div>
+          </div>          
         )}
       </div>
-    </>
+    </div>
   );
 } 

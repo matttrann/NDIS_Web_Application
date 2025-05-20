@@ -1,0 +1,46 @@
+/* Card styling */
+  .hover-card {
+    width: 100%;
+    height: 80%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="4" fill="%23ff7eb3" /><circle cx="4" cy="4" r="2" fill="%23ff758c" /><circle cx="16" cy="16" r="2" fill="%23ff758c" /></svg>') repeat;
+    background-size: 100px 100px;
+    background-color: #ffffff;
+    font-size: 20px;
+    transition: background 0.5s ease;
+    animation: move-and-color 10s linear infinite;
+  }
+  
+  /* Keyframe animation for moving and changing colors */
+  @keyframes move-and-color {
+    0% {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="4" fill="%23ff7eb3" /><circle cx="4" cy="4" r="2" fill="%23ff758c" /><circle cx="16" cy="16" r="2" fill="%23ff758c" /></svg>');
+      background-position: 0 0;
+    }
+    25% {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="4" fill="%23ffcc00" /><circle cx="4" cy="4" r="2" fill="%2300ccff" /><circle cx="16" cy="16" r="2" fill="%23ff33cc" /></svg>');
+      background-position: 25px 25px;
+    }
+    50% {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="4" fill="%2300ffaa" /><circle cx="4" cy="4" r="2" fill="%23ff0066" /><circle cx="16" cy="16" r="2" fill="%23ff6600" /></svg>');
+      background-position: 50px 50px;
+    }
+    75% {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="4" fill="%23ff7eb3" /><circle cx="4" cy="4" r="2" fill="%23ff758c" /><circle cx="16" cy="16" r="2" fill="%23ff758c" /></svg>');
+      background-position: 75 75;
+    }
+    100% {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="4" fill="%23ffcc00" /><circle cx="4" cy="4" r="2" fill="%2300ccff" /><circle cx="16" cy="16" r="2" fill="%23ff33cc" /></svg>');
+      background-position: 100px 100px;
+    }
+  }
+  
+  :root {
+    --backgroundColor: rgba(246, 241, 209);
+    --colorShadeA: rgb(106, 163, 137);
+    --colorShadeB: rgb(121, 186, 156);
+    --colorShadeC: rgb(150, 232, 195);
+    --colorShadeD: rgb(187, 232, 211);
+    --colorShadeE: rgb(205, 255, 232);
+  }
+  
+  
