@@ -255,7 +255,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
       <h3>
         <div className='rcorners2' onMouseEnter={onEnterTextBox} onMouseLeave={onLeaveTextBox}>{talk} </div>
       </h3>
-      <h4>{avatarImage}</h4>
+      <h4 style={{ display: "flex", justifyContent: "flex-end" }}>{avatarImage}</h4>
     </>
   );
 
