@@ -65,7 +65,7 @@ export function ClientQuestionnaire({ user, hasApprovedAdmin, hasRequestedAdmin 
         </DialogContent>
       </Dialog>
 
-      <div className="rounded-lg p-8 text-color">
+      <div className="rounded-lg p-8">
         <WelcomeToast username={user.name} />
         <DashboardHeader
           heading="Questionnaire"

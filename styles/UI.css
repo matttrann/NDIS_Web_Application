@@ -26,12 +26,16 @@
     padding: 30px; 
     border: solid 2px #6e7491;
     color: #ffffff;
-    font-size: 25px;
-    text-shadow: 2px 2px 6px red;
-    min-height: 150px;
-    width: 85%;
+    font-size: 17px;
+    text-shadow: 2px 2px 6px rgb(0, 0, 0);
+    min-height: 200px;
+    width: 95%;
     box-shadow: 3px 15px 8px -10px rgba(0, 0, 0, 0.3);
     text-align: center;
+    /* Added for vertical centering */
+    display: flex;
+    align-items: center; /* Aligns content vertically in the middle */
+    justify-content: center; /* Ensures content is also horizontally centered within the flex container */
   }
 
   .sketchy {

@@ -242,7 +242,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     border: '1px solid #000',
     backgroundColor: '#6B4984',
     marginBottom: '15px',
-    marginTop: '15px',    
+    marginTop: '5px',    
     cssFloat: 'right'
   }
 
