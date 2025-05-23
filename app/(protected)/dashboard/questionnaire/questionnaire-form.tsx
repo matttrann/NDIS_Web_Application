@@ -307,7 +307,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
       <Textarea
         value={answers.why}
         onChange={(e) => setAnswers({ ...answers, why: e.target.value })}
-        placeholder="e.g. I get distracted then I'm in trouble for not paying attention."
+        placeholder="e.g. I get distracted then I'm in trouble for not paying attention"
         className="sketchy"
       />
     </>,
@@ -318,7 +318,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
       <Textarea
         value={answers.whatStrategyHelps}
         onChange={(e) => setAnswers({ ...answers, whatStrategyHelps: e.target.value })}
-        placeholder="e.g., asking the teacher for a break, asking more questions to stay engaged"
+        placeholder="e.g. asking the teacher for a break, asking more questions to stay engaged"
         className="sketchy"
       />
     </>,
@@ -340,7 +340,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
       <Textarea
         value={answers.whatStoryShow}
         onChange={(e) => setAnswers({ ...answers, whatStoryShow: e.target.value })}
-        placeholder="e.g., my strategies clearly listed/a character using my strategies"
+        placeholder="e.g. my strategies clearly listed/a character using my strategies"
         className="sketchy"
       />
     </>,
