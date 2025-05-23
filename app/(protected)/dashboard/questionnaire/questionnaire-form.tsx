@@ -145,32 +145,11 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   }
 
   const loadingBarStyle = [
-    "bar shadow overlap",
-    "bar shadow leaf",
-    "bar shadow bars",
-    "bar shadow lines",
-    "bar shadow wiggle",
-    "bar shadow dots",
-    "bar shadow circuit",
-    "bar shadow aztec",
-    "bar shadow bees",
-    "bar shadow food",
-    "bar shadow clouds",
-    "bar shadow stripes",
-    "bar shadow crosses",
-    "bar shadow jupiter",
-    "bar shadow piano",
-    "bar shadow dominos",
-    "bar shadow pie",
-    "bar shadow floor",
-    "bar shadow bubbles",
-    "bar shadow ticTac",
-    "bar shadow zigZag"
+    "bar shadow leaf"
   ]
 
-  function getRandomLoadingBar() {   
-    const randomNumber = Math.floor(Math.random() * 20) + 1;
-    return loadingBarStyle[randomNumber];
+  function getRandomLoadingBar() { 
+    return loadingBarStyle[0];
   }
   
   const [loadingBar, setLoadingBar] = useState(getRandomLoadingBar);
@@ -191,7 +170,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     let q = gsap.utils.selector(currentTarget);
     gsap.to(currentTarget, { scale: 0.8 });
     gsap.to(currentTarget, { backgroundColor: getRandomColor()});
-    setTalk("That is tickles!");
+    setTalk("That tickles!");
   };
   
   const onLeaveAvatar = ({ currentTarget }) => {
@@ -207,7 +186,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     if (currentStep === 0) {
       setTalk("Great! Let's start.");
     } else {
-      setTalk("Good job! Let's get to the next one.");
+      setTalk("let's go back to the previous question.");
     }
   };
 
@@ -217,7 +196,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     if (currentStep === 0) {
       setTalk("Great! Let's start.");
     } else {
-      setTalk("let's go back to the previous question.");
+      setTalk("Good job! Let's get to the next one.");
     }
   };
   
@@ -273,7 +252,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
       <Textarea
         value={answers.whoisInvolved}
         onChange={(e) => setAnswers({ ...answers, whoisInvolved: e.target.value })}
-        placeholder="e.g., My mother, my friend Sarah, etc."
+        placeholder="e.g.My mother and my friend Sarah are involved in the story"
         className="sketchy"
       />
     </>,
@@ -284,7 +263,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
       <Textarea
         value={answers.whoCanHelp}
         onChange={(e) => setAnswers({ ...answers, whoCanHelp: e.target.value })}
-        placeholder="e.g., My mother, my friend Sarah, etc."
+        placeholder="e.g.My friend Sarah can help me by reminding me of my strategies"
         className="sketchy"
       />
     </>,
@@ -306,7 +285,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
   <Textarea
     value={answers.when}
     onChange={(e) => setAnswers({ ...answers, when: e.target.value })}
-    placeholder="e.g., During story time"
+    placeholder="e.g. During story time"
     className="sketchy"
   />
 </>,
@@ -317,7 +296,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
     <Textarea
       value={answers.where}
       onChange={(e) => setAnswers({ ...answers, where: e.target.value })}
-      placeholder="e.g., in maths class"
+      placeholder="e.g. In Mr. Johns maths class"
       className="sketchy"
     />
   </>,
@@ -328,7 +307,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
       <Textarea
         value={answers.why}
         onChange={(e) => setAnswers({ ...answers, why: e.target.value })}
-        placeholder="e.g. I have too much energy"
+        placeholder="e.g. I get distracted then I'm in trouble for not paying attention."
         className="sketchy"
       />
     </>,
@@ -339,7 +318,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
       <Textarea
         value={answers.whatStrategyHelps}
         onChange={(e) => setAnswers({ ...answers, whatStrategyHelps: e.target.value })}
-        placeholder="e.g., Making friends, managing emotions, completing tasks independently"
+        placeholder="e.g., asking the teacher for a break, asking more questions to stay engaged"
         className="sketchy"
       />
     </>,
@@ -350,7 +329,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
       <Textarea
         value={answers.storyFeel}
         onChange={(e) => setAnswers({ ...answers, storyFeel: e.target.value })}
-        placeholder="e.g., Calming, reassuring, exciting"
+        placeholder="e.g. I want the story to feel calming/reassuring/exciting"
         className="sketchy"
       />
     </>,
@@ -361,7 +340,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
       <Textarea
         value={answers.whatStoryShow}
         onChange={(e) => setAnswers({ ...answers, whatStoryShow: e.target.value })}
-        placeholder="e.g., my strategies clearly listed, a character using my strategies"
+        placeholder="e.g., my strategies clearly listed/a character using my strategies"
         className="sketchy"
       />
     </>,
@@ -461,8 +440,11 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
         </div>
         <div className="progress">
           <div 
-            className= {loadingBar}
-            style={{ width: `${progressPercentage}%` }}
+            className= "h-full transition-all duration-300"
+            style={{ 
+              width: `${progressPercentage}%`,
+              backgroundColor: 'hsl(171, 53.90%, 60.00%)' 
+            }}
           />
         </div>
       </div>
@@ -513,6 +495,7 @@ export function QuestionnaireForm({ userId }: { userId: string }) {
               type="submit" 
               disabled={loading || !isCurrentQuestionAnswered()}
               className="big-button"
+              onMouseEnter={onEnterPreviousButton} onMouseLeave={onLeaveButton}
             >
               {loading ? (
                 <>
